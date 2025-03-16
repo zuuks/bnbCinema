@@ -1,0 +1,12 @@
+<div class="filmovi-container">
+    <mat-card *ngFor="let film of filmovi">
+      <img mat-card-image [src]="film.slika" alt="{{ film.naziv }}">
+      <mat-card-title>{{ film.naziv }}</mat-card-title>
+      <mat-card-content>
+        <p><strong>Žanr:</strong> {{ film.zanr }}</p>
+        <p><strong>Trajanje:</strong> {{ film.trajanje }} min</p>
+        <p>{{ film.opis }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
