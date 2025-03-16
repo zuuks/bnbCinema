@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-filmovi',
-  imports: [],
-  templateUrl: './filmovi.component.html',
-  styleUrl: './filmovi.component.css'
+  template: `<h2>Filmovi komponenta učitana!</h2>`,
 })
 export class FilmoviComponent {
-
+  constructor() {
+    console.log('✅ FilmoviComponent je učitan!');
+  }
 }

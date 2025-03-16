@@ -6,7 +6,8 @@ import { ProjekcijeComponent } from './components/projekcije/projekcije.componen
 const routes: Routes = [
   { path: 'filmovi', component: FilmoviComponent },
   { path: 'projekcije', component: ProjekcijeComponent },
-  { path: '', redirectTo: '/filmovi', pathMatch: 'full' }
+  { path: '', redirectTo: '/filmovi', pathMatch: 'full' }, // Podrazumevana ruta
+  { path: '**', redirectTo: '/filmovi' } // Ako ne postoji ruta, preusmeri na filmovi
 ];
 
 @NgModule({
