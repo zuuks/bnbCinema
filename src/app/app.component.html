@@ -1,9 +1,10 @@
 <mat-toolbar color="primary">
     <span>Digitalni Bioskop</span>
     <span class="spacer"></span>
-    <button mat-button routerLink="/filmovi">Filmovi</button>
-    <button mat-button routerLink="/projekcije">Projekcije</button>
+    <button mat-button routerLink="/filmovi" routerLinkActive="active">Filmovi</button>
+    <button mat-button routerLink="/projekcije" routerLinkActive="active">Projekcije</button>
   </mat-toolbar>
   
+  <!-- OVO OSIGURAVA PRIKAZ STRANICA -->
   <router-outlet></router-outlet>
   

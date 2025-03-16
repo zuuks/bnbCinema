@@ -1,18 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { BioskopService } from '../../services/bioskop.service';
-import { Film } from '../../models/film.model';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-filmovi',
+  imports: [],
   templateUrl: './filmovi.component.html',
-  styleUrls: ['./filmovi.component.css']
+  styleUrl: './filmovi.component.css'
 })
-export class FilmoviComponent implements OnInit {
-  filmovi: Film[] = [];
+export class FilmoviComponent {
 
-  constructor(private bioskopService: BioskopService) {}
-
-  ngOnInit() {
-    this.filmovi = this.bioskopService.getFilmovi();
-  }
 }

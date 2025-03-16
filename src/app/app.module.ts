@@ -4,11 +4,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FilmoviComponent } from './components/filmovi/filmovi.component';
 import { ProjekcijeComponent } from './components/projekcije/projekcije.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
 
-// Uvoz zasebnog modula za Angular Material
-import { MaterialModule } from './material.module';
+// Angular Material moduli
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+
+// Rutiranje i animacije
+import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,10 @@ import { MaterialModule } from './material.module';
     AppRoutingModule,
     RouterModule,
     BrowserAnimationsModule,
-    MaterialModule  // Dodajemo naš Angular Material module
+    MatToolbarModule,
+    MatButtonModule,
+    MatCardModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
