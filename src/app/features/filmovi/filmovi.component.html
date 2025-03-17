@@ -1,26 +1,27 @@
 <div class="container">
-    <h1>Lista Filmova</h1>
-    <table class="table table-striped listafilmova">
-      <thead>
-        <tr>
-          <th>Naslov</th>
-          <th>Režiser</th>
-          <th>Godina</th>
-          <th>Žanr</th>
-          <th>Opis</th>
-          <th>Slika</th>
-        </tr>
-      </thead>
-      <tbody>
-    </tbody>
-</table>
-</div>
+  <h1>Lista Filmova</h1>
 
-<tr *ngFor="let film of filmovi">
-  <td>{{ film.title }}</td>
-  <td>{{ film.director.name }}</td>
-  <td>{{ film.startDate }}</td>
-  <td>{{ film.genre }}</td>
-  <td>{{ film.shortDescription }}</td>
-  <td><img src="{{ film.poster }}" alt=""></td>
-</tr>
+  <!-- Input polja za pretragu -->
+  <div class="search-container">
+      <input type="text" class="search-bar" placeholder="Pretraži po naslovu..." [(ngModel)]="searchTitle" (input)="filterMovies()">
+      <input type="text" class="search-bar" placeholder="Pretraži po režiseru..." [(ngModel)]="searchDirector" (input)="filterMovies()">
+
+      <!-- Date picker za odabir godine -->
+      <input type="date" class="search-bar" [(ngModel)]="searchYear" (change)="filterMovies()" max="9999-12-31">
+  </div>
+
+    <div class="svifilmovi" >
+        <div class="lista" *ngFor="let film of filmovi">
+            <div class="film" >
+                <div class="filmgore">
+                    <img src="{{ film.poster }}" alt="">
+                </div>
+                <div class="filmdole">
+                    <h2>{{ film.title }}</h2>
+                </div>
+            </div>
+        </div>
+
+
+</div>
+</div>
