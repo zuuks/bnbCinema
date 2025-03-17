@@ -20,7 +20,7 @@ body, html {
   /* Glavni kontejner za login */
   .login-container {
     width: 350px;
-    padding: 55px;
+    padding: 50px;
     background: #222;
     color: #f5c518;
     border-radius: 10px;
