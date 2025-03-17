@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { MovieService } from './movie.service';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterLink, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'angular-routing';
-  footerUrl = 'https://www.ganatan.com';
-  footerLink = 'www.ganatan.com';
+export class AppComponent implements OnInit {
+  title = 'BNBCinema'; // Postavi naziv aplikacije
+  movies: any[] = [];
+
+  constructor(private movieService: MovieService) {}
+
+  ngOnInit() {
+    this.movieService.getMovies().subscribe(data => {
+      this.movies = data.results; // API vraća filmove
+    });
+  }
 }
