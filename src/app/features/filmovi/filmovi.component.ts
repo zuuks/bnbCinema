@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FilmoviService } from './filmovi.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; // ✅ Uključi FormsModule za [(ngModel)]
 
 @Component({
   selector: 'app-filmovi',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule], // ✅ Dodaj FormsModule
   templateUrl: './filmovi.component.html',
   styleUrls: ['./filmovi.component.css']
 })
@@ -22,11 +22,11 @@ export class FilmoviComponent {
   ngOnInit(): void {
     this.filmoviService.getFilmovi().subscribe((data: any[]) => {
       this.filmovi = data;
-      this.filteredFilmovi = data; // Postavljamo inicijalnu listu
+      this.filteredFilmovi = data; // Početni prikaz svih filmova
     });
   }
 
-  // Filtriranje filmova prema naslovu, režiseru i godini
+  // 🔍 Funkcija za pretragu filmova po naslovu, režiseru i godini
   filterMovies(): void {
     const selectedYear = this.searchYear ? new Date(this.searchYear).getFullYear().toString() : '';
 

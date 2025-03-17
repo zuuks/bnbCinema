@@ -10,18 +10,17 @@
       <input type="date" class="search-bar" [(ngModel)]="searchYear" (change)="filterMovies()" max="9999-12-31">
   </div>
 
-    <div class="svifilmovi" >
-        <div class="lista" *ngFor="let film of filmovi">
-            <div class="film" >
-                <div class="filmgore">
-                    <img src="{{ film.poster }}" alt="">
-                </div>
-                <div class="filmdole">
-                    <h2>{{ film.title }}</h2>
-                </div>
-            </div>
-        </div>
-
-
-</div>
+  <!-- Prikaz filmova u obliku kartica -->
+  <div class="svifilmovi">
+      <div class="lista" *ngFor="let film of filteredFilmovi">
+          <div class="film">
+              <div class="filmgore">
+                  <img src="{{ film.poster }}" alt="{{ film.title }}">
+              </div>
+              <div class="filmdole">
+                  <h2>{{ film.title }}</h2>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
