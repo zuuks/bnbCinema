@@ -30,39 +30,176 @@
     color: #f5c518;
     font-size: 16px;
     text-align: center;
-    transition: 0.3s
+    transition: 0.3s;
 }
 
-.svifilmovi{
-    background-color: grey;
-    width: 1600px;
-    height: 800px;
-    margin: auto;
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: center;
-    flex-direction: row;
-    gap: 20px;
+/* Hover efekat na input polja */
+.search-bar:hover {
+    background: #222;
 }
-.lista{
+
+/* 🏆 Stilizacija glavnog kontejnera filmova */
+.svifilmovi {
+    background-color: #111; /* Tamna bioskopska pozadina */
+    width: 100%;
+    max-width: 1600px;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    border-radius: 10px;
+}
+
+/* 🎬 Stilizacija svake kartice filma */
+.lista {
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
-.film{
+
+.lista:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(245, 197, 24, 0.7);
+}
+
+/* 🏆 Stilizacija pojedinačne kartice filma */
+.film {
     width: 280px;
     height: 450px;
+    background: #222;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+    cursor: pointer;
 }
-.filmgore{
-    background-color: red;
-    height: 2px;
+
+/* 🖼️ Gornji deo kartice (slika filma) */
+.filmgore {
+    background: #222;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
 }
-.filmgore img{
-    max-width:100%;
+
+/* Stilizacija slike filma */
+.filmgore img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
 }
-.filmdole{
-   margin-top: 410px;
-   color: white;
-   max-width: 100%;
-   text-align: left;
+
+/* Hover efekat na sliku */
+.filmgore img:hover {
+    transform: scale(1.1);
+}
+
+/* 🎭 Donji deo kartice (naslov filma) */
+.filmdole {
+    height: 20%;
+    background: rgba(0, 0, 0, 0.8);
+    color: #f5c518;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* 🏆 Modal prozor */
+/* 🏆 Modal prozor */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Modal sadržaj */
+.modal-content {
+    background: #222;
+    padding: 20px;
+    width: 500px;
+    border-radius: 10px;
+    text-align: center;
+    color: #f5c518;
+    position: relative;
+}
+
+/* ⭐ Stil za prosečnu ocenu */
+.average-rating {
+    font-size: 18px;
+    background: #f5c518;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+/* ❌ X dugme za zatvaranje */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #f5c518;
+    transition: 0.3s;
+}
+
+.close:hover {
+    color: red;
+}
+
+
+/* 📱 Responsive dizajn */
+@media (max-width: 1024px) {
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    .svifilmovi {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .film {
+        width: 250px;
+        height: 400px;
+    }
+
+    .filmdole {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .film {
+        width: 220px;
+        height: 350px;
+    }
+
+    .filmdole {
+        font-size: 14px;
+    }
 }

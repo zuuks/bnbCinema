@@ -1,26 +1,62 @@
 <div class="container">
   <h1>Lista Filmova</h1>
 
-  <!-- Input polja za pretragu -->
   <div class="search-container">
       <input type="text" class="search-bar" placeholder="Pretraži po naslovu..." [(ngModel)]="searchTitle" (input)="filterMovies()">
       <input type="text" class="search-bar" placeholder="Pretraži po režiseru..." [(ngModel)]="searchDirector" (input)="filterMovies()">
-
-      <!-- Date picker za odabir godine -->
       <input type="date" class="search-bar" [(ngModel)]="searchYear" (change)="filterMovies()" max="9999-12-31">
   </div>
 
-  <!-- Prikaz filmova u obliku kartica -->
+  <!-- Prikaz filmova -->
   <div class="svifilmovi">
       <div class="lista" *ngFor="let film of filteredFilmovi">
           <div class="film">
-              <div class="filmgore">
+              <div class="filmgore" (click)="openFilmDetails(film)">
                   <img src="{{ film.poster }}" alt="{{ film.title }}">
               </div>
               <div class="filmdole">
                   <h2>{{ film.title }}</h2>
               </div>
           </div>
+      </div>
+  </div>
+
+  <!-- Modal za detalje filma, ocene i komentare -->
+  <div *ngIf="selectedFilm" class="modal" (click)="closeModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+          <span class="close" (click)="closeModal()">&times;</span>
+          
+          <!-- Prikaz svih informacija o filmu -->
+          <h2>{{ selectedFilm.title }} <span class="average-rating">⭐ {{ averageRating.toFixed(1) }}</span></h2>
+          <img [src]="selectedFilm.poster" alt="{{ selectedFilm.title }}">
+          
+          <p><strong>Režiser:</strong> {{ selectedFilm.director.name }}</p>
+          <p><strong>Godina:</strong> {{ selectedFilm.startDate }}</p>
+          <p><strong>Žanr:</strong> {{ selectedFilm.genre }}</p>
+          <p><strong>Opis:</strong> {{ selectedFilm.shortDescription }}</p>
+
+          <hr>
+
+          <!-- Ocenjivanje filma -->
+          <h3>Oceni film:</h3>
+          <select [(ngModel)]="selectedRating">
+              <option *ngFor="let r of [1, 2, 3, 4, 5]" [value]="r">{{ r }}</option>
+          </select>
+
+          <label>Komentar:</label>
+          <textarea [(ngModel)]="selectedComment" placeholder="Napišite komentar..."></textarea>
+
+          <button (click)="submitReview()">Sačuvaj</button>
+
+          <hr>
+
+          <!-- Prikaz komentara -->
+          <h3>Komentari:</h3>
+          <ul>
+              <li *ngFor="let review of filmReviews">
+                  <strong>Ocena:</strong> {{ review.rating }} ⭐ - {{ review.comment }}
+              </li>
+          </ul>
       </div>
   </div>
 </div>
