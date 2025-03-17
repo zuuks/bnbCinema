@@ -28,18 +28,21 @@
           <span class="close" (click)="closeModal()">&times;</span>
           
           <!-- 🎬 Prikaz informacija o filmu -->
-          <h2 class="modal-title">
-              {{ selectedFilm.title }}
-              <span class="average-rating">⭐ {{ averageRating.toFixed(1) }}</span>
-          </h2>
-          <img class="modal-img" [src]="selectedFilm.poster" alt="{{ selectedFilm.title }}">
-          
-          <p><strong>Režiser:</strong> {{ selectedFilm.director.name }}</p>
-          <p><strong>Godina:</strong> {{ selectedFilm.startDate }}</p>
-          <p><strong>Žanr:</strong> {{ selectedFilm.genre }}</p>
-          <p><strong>Opis:</strong> {{ selectedFilm.shortDescription }}</p>
+          <!-- 🎬 Prikaz informacija o filmu -->
+<h2 class="modal-title">
+  {{ selectedFilm.title }}
+  <span class="average-rating">⭐ {{ averageRating.toFixed(1) }}</span>
+</h2>
 
-          <hr>
+<!-- 🖼️ Smanjena slika filma -->
+<img class="modal-img-small" [src]="selectedFilm.poster" alt="{{ selectedFilm.title }}">
+
+<p><strong>Režiser:</strong> {{ selectedFilm.director.name }}</p>
+<p><strong>Godina:</strong> {{ selectedFilm.startDate }}</p>
+<p><strong>Žanr:</strong> {{ selectedFilm.genre }}</p>
+<p><strong>Opis:</strong> {{ selectedFilm.shortDescription }}</p>
+
+<hr>
 
           <!-- ⭐ Ocenjivanje i komentarisanje -->
           <div class="review-container">

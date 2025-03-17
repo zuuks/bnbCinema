@@ -42,18 +42,24 @@ export class FilmoviComponent {
     );
   }
 
-  // 📌 Otvaranje modal prozora i učitavanje postojećih ocena
   openFilmDetails(film: any): void {
     this.selectedFilm = film;
     this.loadReviews(film.title);
-  }
 
-  // 📌 Zatvaranje modal prozora
-  closeModal(): void {
+    // ❌ Onemogućavamo skrolovanje stranice
+    document.body.classList.add('no-scroll');
+    document.documentElement.classList.add('no-scroll'); // Blokira i root element
+}
+
+closeModal(): void {
     this.selectedFilm = null;
     this.selectedRating = 5;
     this.selectedComment = '';
-  }
+
+    // ✅ Vraćamo skrolovanje kada se modal zatvori
+    document.body.classList.remove('no-scroll');
+    document.documentElement.classList.remove('no-scroll');
+}
 
   // 📌 Čuvanje ocena i komentara u `localStorage`
   submitReview(): void {
