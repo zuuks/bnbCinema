@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MovieService } from './movie.service';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
@@ -14,4 +13,3 @@ export class AppComponent {
   footerUrl = 'https://www.ganatan.com';
   footerLink = 'www.ganatan.com';
 }
-
