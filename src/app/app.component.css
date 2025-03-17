@@ -11,7 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    max-width: 1200px;
+    max-width: auto;
     margin: 0 auto;
   }
   
@@ -74,6 +74,7 @@ body {
     padding: 20px;
     text-align: center;
     background-color: #111;
+    color: #6d6a6a;
   }
   
   h4 {
@@ -100,24 +101,3 @@ body {
   footer a:hover {
     text-decoration: underline;
   }
-
-  .movie-container {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .movie-card {
-    display: inline-block;
-    width: 200px;
-    margin: 10px;
-    padding: 10px;
-    background: #222;
-    color: #f5c518;
-    border-radius: 8px;
-  }
-  
-  .movie-card img {
-    width: 100%;
-    border-radius: 8px;
-  }
-  
