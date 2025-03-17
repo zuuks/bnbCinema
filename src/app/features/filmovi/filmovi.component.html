@@ -1,17 +1,18 @@
 <div class="container">
   <h1>Lista Filmova</h1>
 
+  <!-- 🔍 Input polja za pretragu -->
   <div class="search-container">
       <input type="text" class="search-bar" placeholder="Pretraži po naslovu..." [(ngModel)]="searchTitle" (input)="filterMovies()">
       <input type="text" class="search-bar" placeholder="Pretraži po režiseru..." [(ngModel)]="searchDirector" (input)="filterMovies()">
       <input type="date" class="search-bar" [(ngModel)]="searchYear" (change)="filterMovies()" max="9999-12-31">
   </div>
 
-  <!-- Prikaz filmova -->
+  <!-- 🎞️ Prikaz filmova -->
   <div class="svifilmovi">
       <div class="lista" *ngFor="let film of filteredFilmovi">
-          <div class="film">
-              <div class="filmgore" (click)="openFilmDetails(film)">
+          <div class="film" (click)="openFilmDetails(film)">
+              <div class="filmgore">
                   <img src="{{ film.poster }}" alt="{{ film.title }}">
               </div>
               <div class="filmdole">
@@ -21,14 +22,17 @@
       </div>
   </div>
 
-  <!-- Modal za detalje filma, ocene i komentare -->
+  <!-- 📌 Modal prozor za prikaz detalja filma -->
   <div *ngIf="selectedFilm" class="modal" (click)="closeModal()">
       <div class="modal-content" (click)="$event.stopPropagation()">
           <span class="close" (click)="closeModal()">&times;</span>
           
-          <!-- Prikaz svih informacija o filmu -->
-          <h2>{{ selectedFilm.title }} <span class="average-rating">⭐ {{ averageRating.toFixed(1) }}</span></h2>
-          <img [src]="selectedFilm.poster" alt="{{ selectedFilm.title }}">
+          <!-- 🎬 Prikaz informacija o filmu -->
+          <h2 class="modal-title">
+              {{ selectedFilm.title }}
+              <span class="average-rating">⭐ {{ averageRating.toFixed(1) }}</span>
+          </h2>
+          <img class="modal-img" [src]="selectedFilm.poster" alt="{{ selectedFilm.title }}">
           
           <p><strong>Režiser:</strong> {{ selectedFilm.director.name }}</p>
           <p><strong>Godina:</strong> {{ selectedFilm.startDate }}</p>
@@ -37,26 +41,39 @@
 
           <hr>
 
-          <!-- Ocenjivanje filma -->
-          <h3>Oceni film:</h3>
-          <select [(ngModel)]="selectedRating">
-              <option *ngFor="let r of [1, 2, 3, 4, 5]" [value]="r">{{ r }}</option>
-          </select>
+          <!-- ⭐ Ocenjivanje i komentarisanje -->
+          <div class="review-container">
+              <h3>Oceni film:</h3>
 
-          <label>Komentar:</label>
-          <textarea [(ngModel)]="selectedComment" placeholder="Napišite komentar..."></textarea>
+              <div class="rating-box">
+                  <label for="rating">Ocena:</label>
+                  <select id="rating" [(ngModel)]="selectedRating">
+                      <option *ngFor="let r of [1, 2, 3, 4, 5]" [value]="r">{{ r }}</option>
+                  </select>
+              </div>
 
-          <button (click)="submitReview()">Sačuvaj</button>
+              <div class="comment-box">
+                  <label for="comment">Komentar:</label>
+                  <textarea id="comment" [(ngModel)]="selectedComment" placeholder="Napišite komentar..."></textarea>
+              </div>
+
+              <button class="save-button" (click)="submitReview()">💾 Sačuvaj</button>
+          </div>
 
           <hr>
 
-          <!-- Prikaz komentara -->
-          <h3>Komentari:</h3>
-          <ul>
-              <li *ngFor="let review of filmReviews">
-                  <strong>Ocena:</strong> {{ review.rating }} ⭐ - {{ review.comment }}
-              </li>
-          </ul>
+          <!-- 💬 Prikaz komentara sa skrolovanjem -->
+<!-- 💬 Prikaz komentara sa skrolovanjem -->
+<h3>Komentari:</h3>
+<ul class="comments-list">
+    <li *ngFor="let review of filmReviews">
+        <strong>Ocena:</strong> {{ review.rating }} ⭐ - {{ review.comment }}
+    </li>
+</ul>
+
+<!-- 🗑️ Dugme za brisanje svih komentara -->
+<button class="delete-button" (click)="deleteAllReviews()">🗑️ Obriši sve komentare</button>
+
       </div>
   </div>
 </div>

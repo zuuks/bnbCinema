@@ -84,9 +84,22 @@ calculateAverageRating(): void {
       return;
   }
 
+  
   // Osiguravamo da se sve ocene sabiraju kao brojevi
   const total = this.filmReviews.reduce((sum, review) => sum + review.rating, 0);
 
   this.averageRating = total / this.filmReviews.length;
+}
+
+// 📌 Brisanje svih komentara i ocena za odabrani film
+deleteAllReviews(): void {
+  if (!this.selectedFilm) return;
+
+  // Uklanjamo podatke iz localStorage
+  localStorage.removeItem(this.selectedFilm.title);
+
+  // Resetujemo prikaz komentara i prosečnu ocenu
+  this.filmReviews = [];
+  this.averageRating = 0;
 }
 }

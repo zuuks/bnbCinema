@@ -203,3 +203,136 @@
         font-size: 14px;
     }
 }
+
+
+
+/* 📦 Kontejner za ocenjivanje i komentare */
+.review-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+
+/* ⭐ Naslov ocenjivanja */
+.review-container h3 {
+    color: #f5c518;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* 📊 Ocena (select) */
+.rating-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rating-box label {
+    font-size: 16px;
+    color: #f5c518;
+}
+
+.rating-box select {
+    padding: 8px;
+    border-radius: 5px;
+    background: #222;
+    color: #f5c518;
+    border: 1px solid #f5c518;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* 💬 Polje za unos komentara */
+.comment-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.comment-box label {
+    font-size: 16px;
+    color: #f5c518;
+    margin-bottom: 5px;
+}
+
+.comment-box textarea {
+    width: 100%;
+    height: 80px;
+    padding: 8px;
+    border-radius: 5px;
+    background: #111;
+    color: #f5c518;
+    border: 1px solid #f5c518;
+    font-size: 14px;
+    resize: none;
+}
+
+/* 💾 Dugme za čuvanje */
+.save-button {
+    width: 100%;
+    padding: 10px;
+    background: #f5c518;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.save-button:hover {
+    background: #d4a017;
+    transform: scale(1.05);
+}
+
+/* 💬 Stilizacija liste komentara */
+.comments-list {
+    max-height: 200px; /* Postavi maksimalnu visinu */
+    overflow-y: auto;  /* Omogućava skrolovanje kada ima više komentara */
+    background: #222;  /* Tamna pozadina */
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #f5c518;
+    list-style: none;
+    margin: 10px 0;
+}
+
+/* Pojedinačni komentar */
+.comments-list li {
+    padding: 8px;
+    border-bottom: 1px solid #444;
+    color: #f5c518;
+    font-size: 14px;
+}
+
+/* Uklanja border poslednjem komentaru */
+.comments-list li:last-child {
+    border-bottom: none;
+}
+
+/* 🗑️ Dugme za brisanje svih komentara */
+.delete-button {
+    width: 100%;
+    padding: 10px;
+    background: red;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.delete-button:hover {
+    background: darkred;
+    transform: scale(1.05);
+}
