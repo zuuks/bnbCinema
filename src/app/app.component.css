@@ -32,27 +32,41 @@ body {
     text-transform: uppercase;
   }
   
-  /* Navigacija */
-  nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 15px 0;
-    background-color: #111;
-    border-bottom: 3px solid #f5c518;
-  }
-  
-  nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-  }
-  
-  nav ul li {
-    margin: 0 15px;
-  }
+/* 🎬 Navigacija */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px 20px;
+  background-color: #111;
+  border-bottom: 3px solid #f5c518;
+}
+
+/* Leva strana navigacije */
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Desna strana navigacije */
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Glavni stil za navigacione liste */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+/* Stilizacija svake stavke navigacije */
+nav ul li {
+  margin: 0 15px;
+}
   
   nav a {
     text-decoration: none;
@@ -102,3 +116,24 @@ body {
   footer a:hover {
     text-decoration: underline;
   }
+
+
+  
+/* 🎟️ Stil za Login dugme */
+.login-nav {
+  margin-left: 50px; /* Pomeramo login skroz desno */
+}
+
+.login-nav a {
+  background-color: #f5c518;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-nav a:hover {
+  background-color: #d4a017;
+  transform: scale(1.1);
+}
