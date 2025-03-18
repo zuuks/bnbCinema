@@ -307,3 +307,87 @@
     background: darkred;
     transform: scale(1.05);
 }
+
+/* 🎟️ Dugme za rezervaciju */
+.rezervisi-button {
+    display: inline-block;
+    background: linear-gradient(45deg, #ffcc00, #ff6600);
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(255, 204, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* 🎟️ Efekat hover-a */
+.rezervisi-button:hover {
+    background: linear-gradient(45deg, #ff6600, #ffcc00);
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(255, 204, 0, 0.7);
+}
+
+/* 🎟️ Efekat klika */
+.rezervisi-button:active {
+    transform: scale(0.95);
+}
+
+/* 🎟️ Lista rezervisanih filmova */
+.rezervisani-container {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 10px;
+}
+
+.rezervisani-list {
+    list-style: none;
+    padding: 0;
+}
+
+.rezervisani-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #f5c518;
+}
+
+/* ❌ Dugme za otkazivanje rezervacije */
+.otkazi-button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.otkazi-button:hover {
+    background: darkred;
+}
+
+
+/* 🎞️ Kontejner za informacije o filmu */
+.film-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+/* 🎟️ Stilizacija imena filma */
+.film-info h2 {
+    font-size: 18px;
+    color: #f5c518;
+    margin: 0;
+    flex: 1; /* Omogućava naslovu da zauzme prostor */
+    text-align: left;
+}

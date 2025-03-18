@@ -8,19 +8,41 @@
       <input type="date" class="search-bar" [(ngModel)]="searchYear" (change)="filterMovies()" max="9999-12-31">
   </div>
 
-  <!-- 🎞️ Prikaz filmova -->
-  <div class="svifilmovi">
-      <div class="lista" *ngFor="let film of filteredFilmovi">
-          <div class="film" (click)="openFilmDetails(film)">
-              <div class="filmgore">
-                  <img src="{{ film.poster }}" alt="{{ film.title }}">
-              </div>
-              <div class="filmdole">
-                  <h2>{{ film.title }}</h2>
-              </div>
-          </div>
-      </div>
-  </div>
+<!-- 🎞️ Prikaz filmova -->
+<div class="svifilmovi">
+    <div class="lista" *ngFor="let film of filteredFilmovi">
+        <div class="film">
+            <div class="filmgore">
+                <img [src]="film.poster" alt="{{ film.title }}">
+            </div>
+            <div class="filmdole">
+                <div class="film-info">
+                    <h2>{{ film.title }}</h2>
+                    <a [attr.href]="'/rezervacija/' + film.title" class="rezervisi-button">
+                        🎟️ Rezerviši
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- 🎟️ Lista rezervisanih filmova -->
+<div *ngIf="rezervisaniFilmovi.length > 0" class="rezervisani-container">
+    <h2>🎟️ Moje rezervacije</h2>
+    <ul class="rezervisani-list">
+        <li *ngFor="let film of rezervisaniFilmovi">
+            {{ film.title }}
+            <button class="otkazi-button" (click)="otkaziRezervaciju(film.title)">❌ Otkazi</button>
+        </li>
+    </ul>
+</div>
+
+
 
   <!-- 📌 Modal prozor za prikaz detalja filma -->
   <div *ngIf="selectedFilm" class="modal" (click)="closeModal()">

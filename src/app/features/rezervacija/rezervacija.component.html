@@ -1,0 +1,23 @@
+<div class="rezervacija-container" *ngIf="film">
+    <h1>Rezervacija za: {{ film.title }}</h1>
+
+    <div class="film-info">
+        <img [src]="film.poster" alt="{{ film.title }}">
+        <p><strong>Režiser:</strong> {{ film.director.name }}</p>
+        <p><strong>Godina:</strong> {{ film.startDate }}</p>
+        <p><strong>Žanr:</strong> {{ film.genre }}</p>
+    </div>
+
+    <form>
+        <label for="korisnickoIme">Vaše ime:</label>
+        <input type="text" id="korisnickoIme" [(ngModel)]="korisnickoIme" required>
+
+        <label for="brojKarata">Broj karata:</label>
+        <input type="number" id="brojKarata" [(ngModel)]="brojKarata" min="1" required>
+
+        <label for="datum">Datum projekcije:</label>
+        <input type="date" id="datum" [(ngModel)]="datum" required>
+
+        <button type="button" (click)="potvrdiRezervaciju()">Potvrdi rezervaciju</button>
+    </form>
+</div>
