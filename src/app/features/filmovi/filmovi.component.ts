@@ -143,5 +143,9 @@ export class FilmoviComponent {
         (selectedYear ? film.startDate.toString().includes(selectedYear) : true)
     );
 }
+get isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+}
+
 
 }

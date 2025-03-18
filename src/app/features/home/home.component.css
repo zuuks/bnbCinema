@@ -1,78 +1,64 @@
-/* 🌟 Glavni kontejner */
+/* 🎬 Glavni kontejner */
 .home-container {
     text-align: center;
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: auto;
-    color: #f5c518;
+    padding: 20px;
 }
 
-/* 🎞️ SLIDER FILMOVA */
+
+/* 🎞️ Slider filmova */
 .slider {
     display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 20px;
-    padding: 20px 0;
-    white-space: nowrap;
-    scrollbar-width: none; /* Sakriva skrolbar u Firefoxu */
-    -ms-overflow-style: none; /* Sakriva skrolbar u IE */
+    justify-content: center; /* Centriranje filmova */
+    align-items: center;
+    gap: 20px; /* Razmak između filmova */
+    flex-wrap: wrap; /* Omogućava prelamanje filmova */
+    max-width: 80%;
+    margin: 0 auto; /* Centriranje */
 }
 
-.slider::-webkit-scrollbar {
-    display: none; /* Sakriva skrolbar u Chrome/Safari */
-}
-
-/* 🖼️ Slajd sa filmom */
+/* 🎬 Pojedinačni film */
 .slide {
-    scroll-snap-align: center;
-    min-width: 300px;
-    max-width: 300px;
-    height: 450px;
+    background: #222;
     border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(255, 204, 0, 0.5);
-    transition: transform 0.3s ease-in-out;
+    padding: 10px;
+    box-shadow: 0 0 15px rgba(245, 197, 24, 0.5);
+    transition: transform 0.3s;
 }
 
 .slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 230px; /* Smanjena veličina postera */
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
 }
 
-/* 🌟 Efekat hover-a */
 .slide:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
-/* 🔥 Tekstualni deo */
+/* 🏆 Tekst ispod slajdera */
 .home-text {
-    margin-top: 40px;
-    font-size: 18px;
-    line-height: 1.6;
-    text-align: center;
-}
+    max-width: 800px;
+    margin: 20px auto;
+    color: #f5c518;
+    font-size
 
 /* 🎟️ Dugme za pregled filmova */
 .home-button {
     display: inline-block;
-    margin-top: 20px;
     padding: 12px 20px;
-    background: linear-gradient(45deg, #ffcc00, #ff6600);
-    color: black;
+    font-size: 18px;
     font-weight: bold;
-    text-transform: uppercase;
+    color: #000;
+    background-color: #f5c518;
     text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.3s ease-in-out;
-    font-size: 16px;
-    box-shadow: 0 4px 8px rgba(255, 204, 0, 0.5);
+    border-radius: 5px;
+    transition: 0.3s;
 }
 
 .home-button:hover {
-    background: linear-gradient(45deg, #ff6600, #ffcc00);
-    transform: scale(1.1);
+    background-color: #d4a017;
 }
 
 /* 📱 Responsive dizajn */
@@ -91,4 +77,5 @@
         font-size: 14px;
         padding: 10px 15px;
     }
+}
 }

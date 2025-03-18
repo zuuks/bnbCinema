@@ -50,7 +50,6 @@
 }
 
 .about-text li {
-    background: url('assets/checkmark.png') no-repeat left center;
     padding-left: 30px;
     margin-bottom: 10px;
 }

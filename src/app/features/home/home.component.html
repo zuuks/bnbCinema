@@ -3,14 +3,8 @@
   
     <!-- 🎞️ SLIDER FILMOVA -->
     <div class="slider">
-      <div class="slide">
-        <img src="assets/movie1.jpg" alt="Film 1">
-      </div>
-      <div class="slide">
-        <img src="assets/movie2.jpg" alt="Film 2">
-      </div>
-      <div class="slide">
-        <img src="assets/movie3.jpg" alt="Film 3">
+      <div class="slide" *ngFor="let film of randomFilmovi">
+        <img [src]="film.poster" [alt]="film.title">
       </div>
     </div>
   
@@ -23,7 +17,7 @@
       </p>
     </div>
   
-    <!-- 🎟️ Dugme za rezervaciju -->
+    <!-- 🎟️ Dugme za pregled filmova -->
     <a href="/filmovi" class="home-button">🎟️ Pogledaj filmove</a>
   </div>
   

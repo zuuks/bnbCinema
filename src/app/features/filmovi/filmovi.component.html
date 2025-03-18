@@ -7,11 +7,10 @@
       <input type="text" class="search-bar" placeholder="Pretraži po režiseru..." [(ngModel)]="searchDirector" (input)="filterMovies()">
       <input type="date" class="search-bar" [(ngModel)]="searchYear" (change)="filterMovies()" max="9999-12-31">
   </div>
-
 <!-- 🎞️ Prikaz filmova -->
 <div class="svifilmovi">
     <div class="lista" *ngFor="let film of filteredFilmovi">
-        <div class="film">
+        <div class="film" (click)="openFilmDetails(film)">
             <div class="filmgore">
                 <img [src]="film.poster" alt="{{ film.title }}">
             </div>
