@@ -9,7 +9,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'angular-routing';
-  footerUrl = 'https://www.ganatan.com';
-  footerLink = 'www.ganatan.com';
+  title = 'Mrnjao';
+  footerUrl = 'https://eng.singidunum.ac.rs/';
+  footerLink = 'eng.singidunum.ac.rs';
 }
