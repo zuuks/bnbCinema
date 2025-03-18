@@ -121,19 +121,19 @@ nav ul li {
   
 /* 🎟️ Stil za Login dugme */
 .login-nav {
-  margin-left: 50px; /* Pomeramo login skroz desno */
+    margin-left: 50px; /* Pomeramo login skroz desno */
 }
 
 .login-nav a {
-  background-color: #f5c518;
-  color: #000;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: all 0.3s ease-in-out;
+    background-color: #f5c518;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
 }
 
 .login-nav a:hover {
-  background-color: #d4a017;
-  transform: scale(1.1);
+    background-color: #d4a017;
+    transform: scale(1.1);
 }

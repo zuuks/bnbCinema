@@ -1,0 +1,73 @@
+/* 📽️ Glavni kontejner */
+.about-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+    text-align: center;
+    color: #f5c518;
+}
+
+/* 🎬 Naslov */
+.about-container h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* 🎞️ Raspored sadržaja */
+.about-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* 🖼️ Stil slike */
+.about-image {
+    width: 45%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 204, 0, 0.5);
+}
+
+/* 📜 Tekst */
+.about-text {
+    width: 50%;
+    text-align: left;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* 🎭 Naslovi unutar teksta */
+.about-text h2, .about-text h3 {
+    color: #ffcc00;
+    margin-top: 20px;
+}
+
+/* 📝 Stil liste */
+.about-text ul {
+    list-style: none;
+    padding: 0;
+}
+
+.about-text li {
+    background: url('assets/checkmark.png') no-repeat left center;
+    padding-left: 30px;
+    margin-bottom: 10px;
+}
+
+/* 📱 Responsive dizajn */
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    .about-text {
+        width: 100%;
+    }
+}
