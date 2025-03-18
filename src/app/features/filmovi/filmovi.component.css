@@ -391,3 +391,26 @@
     flex: 1; /* Omogućava naslovu da zauzme prostor */
     text-align: left;
 }
+
+.korpa-button {
+    background: #ff6600;
+    color: black;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(255, 102, 0, 0.5);
+    cursor: pointer;
+    border: none;
+    margin-left: 10px;
+}
+
+.korpa-button:hover {
+    background: #ff4500;
+    transform: scale(1.1);
+}
+
+.korpa-button:active {
+    transform: scale(0.95);
+}

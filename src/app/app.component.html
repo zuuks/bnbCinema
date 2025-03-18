@@ -20,12 +20,35 @@
           <li><a routerLink="/login">Login</a></li>
         </ul>
       </div>
+
+      <!-- 🛒 Dugme za korpu -->
+      <div class="cart-container" (click)="toggleCart()">
+        🛒 Korpa <span *ngIf="korpa.length > 0">({{ korpa.length }})</span>
+      </div>
     </nav>
   </header>
 
   <main>
     <router-outlet></router-outlet>
+
+    <!-- ✅ Dodajemo prikaz `app-filmovi` ovde kako bi se korpa osvežila -->
+    <app-filmovi (korpaOsvezena)="ucitajKorpu()"></app-filmovi>
   </main>
+
+  <!-- 📦 Prikaz korpe -->
+  <div class="cart-modal" *ngIf="cartOpen">
+    <div class="cart-content">
+      <h2>🛒 Vaša korpa</h2>
+      <ul>
+        <li *ngFor="let rezervacija of korpa">
+          🎟️ <strong>{{ rezervacija.film.title }}</strong> - {{ rezervacija.brojKarata }} karata, {{ rezervacija.datum }}
+          <button (click)="ukloniIzKorpe(rezervacija)">❌</button>
+        </li>
+      </ul>
+
+      <button class="confirm-button" (click)="potvrdiSveRezervacije()">✅ Potvrdi sve</button>
+    </div>
+  </div>
 
   <footer>
     <a href="{{ footerUrl }}">{{ footerLink }}</a>

@@ -37,17 +37,19 @@ export class RezervacijaComponent implements OnInit {
       return;
     }
 
-    const rezervacije = JSON.parse(localStorage.getItem('rezervisaniFilmovi') || '[]');
-    rezervacije.push({
+    const rezervacija = {
       film: this.film,
       korisnickoIme: this.korisnickoIme,
       brojKarata: this.brojKarata,
       datum: this.datum
-    });
+    };
 
-    localStorage.setItem('rezervisaniFilmovi', JSON.stringify(rezervacije));
+    let korpa = JSON.parse(localStorage.getItem('korpa') || '[]');
+    korpa.push(rezervacija);
+    localStorage.setItem('korpa', JSON.stringify(korpa));
 
-    alert(`Uspešno ste rezervisali ${this.brojKarata} karata za "${this.film.title}"!`);
+    alert(`"${this.film.title}" je dodat u korpu!`);
     this.router.navigate(['/filmovi']);
-  }
+}
+
 }
