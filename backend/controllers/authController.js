@@ -42,3 +42,8 @@ exports.login = (req, res) => {
         res.json({ token });
     });
 };
+
+exports.logout = (req, res) => {
+    res.json({ message: "Uspešno ste se odjavili" });
+
+};
