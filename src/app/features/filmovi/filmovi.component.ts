@@ -42,7 +42,6 @@ export class FilmoviComponent {
     this.ucitajKorpu();
   }
 
-  // ✅ Provera da li je korisnik ulogovan
   updateUserStatus(): void {
     this.isLoggedIn = !!localStorage.getItem('token');
     if (this.isLoggedIn) {
@@ -51,15 +50,18 @@ export class FilmoviComponent {
     }
   }
 
-  // ✅ Otvaranje modala sa detaljima filma
   openFilmDetails(film: any): void {
+    if (!film || !film.movieId) {
+        console.error('Greška: film nema ispravan movieId!', film);
+        return;
+    }
+    
     this.selectedFilm = film;
-    this.loadReviews(film.title);
+    this.loadReviews(film.movieId);
     document.body.classList.add('no-scroll');
     document.documentElement.classList.add('no-scroll');
   }
 
-  // ✅ Zatvaranje modala
   closeModal(): void {
     this.selectedFilm = null;
     this.selectedRating = 5;
@@ -68,36 +70,34 @@ export class FilmoviComponent {
     document.documentElement.classList.remove('no-scroll');
   }
 
-  // ✅ Dodavanje recenzije
   submitReview(): void {
     if (!this.isLoggedIn) {
-      alert("Morate biti prijavljeni da biste komentarisali!");
+      alert('Morate biti prijavljeni da biste komentarisali!');
       return;
     }
 
     if (!this.selectedFilm) return;
 
     const newReview = {
+      filmId: this.selectedFilm.movieId,
       username: this.username,
-      rating: Number(this.selectedRating),
+      rating: this.selectedRating,
       comment: this.selectedComment
     };
 
-    let reviews = JSON.parse(localStorage.getItem(this.selectedFilm.title) || '[]');
-    reviews.push(newReview);
-    localStorage.setItem(this.selectedFilm.title, JSON.stringify(reviews));
-
-    this.loadReviews(this.selectedFilm.title);
-    this.selectedComment = '';
+    this.filmoviService.submitReview(newReview).subscribe(() => {
+      this.loadReviews(this.selectedFilm.movieId);
+      this.selectedComment = '';
+    });
   }
 
-  // ✅ Učitavanje recenzija i izračunavanje prosečne ocene
-  loadReviews(filmTitle: string): void {
-    this.filmReviews = JSON.parse(localStorage.getItem(filmTitle) || '[]');
-    this.calculateAverageRating();
+  loadReviews(movieId: number): void {
+    this.filmoviService.getReviews(movieId).subscribe((reviews: any[]) => {
+      this.filmReviews = reviews;
+      this.calculateAverageRating();
+    });
   }
 
-  // ✅ Prosečna ocena
   calculateAverageRating(): void {
     if (this.filmReviews.length === 0) {
       this.averageRating = 0;
@@ -108,39 +108,28 @@ export class FilmoviComponent {
     this.averageRating = total / this.filmReviews.length;
   }
 
-  // ✅ Brisanje svih komentara
   deleteAllReviews(): void {
     if (!this.selectedFilm) return;
-    localStorage.removeItem(this.selectedFilm.title);
-    this.filmReviews = [];
-    this.averageRating = 0;
+    this.filmoviService.deleteReviews(this.selectedFilm.movieId).subscribe(() => {
+      this.filmReviews = [];
+      this.averageRating = 0;
+    });
   }
 
-  // ✅ Rezervacija filma
-  rezervisiFilm(film: any): void {
-    if (!this.isLoggedIn) {
-      alert("Morate biti prijavljeni da biste rezervisali film!");
-      return;
-    }
+  filterMovies(): void {
+    const selectedYear = this.searchYear ? new Date(this.searchYear).getFullYear().toString() : '';
 
-    let rezervisani = JSON.parse(localStorage.getItem('rezervisaniFilmovi') || '[]');
-
-    if (rezervisani.some((rezervisan: any) => rezervisan.title === film.title)) {
-      alert("Već ste rezervisali ovaj film!");
-      return;
-    }
-
-    rezervisani.push(film);
-    localStorage.setItem('rezervisaniFilmovi', JSON.stringify(rezervisani));
-    this.loadRezervisaniFilmovi();
+    this.filteredFilmovi = this.filmovi.filter(film =>
+      film.title.toLowerCase().includes(this.searchTitle.toLowerCase()) &&
+      film.director?.name?.toLowerCase().includes(this.searchDirector.toLowerCase()) &&
+      (selectedYear ? film.startDate.toString().includes(selectedYear) : true)
+    );
   }
 
-  // ✅ Učitavanje rezervisanih filmova
   loadRezervisaniFilmovi(): void {
     this.rezervisaniFilmovi = JSON.parse(localStorage.getItem('rezervisaniFilmovi') || '[]');
   }
 
-  // ✅ Otkazivanje rezervacije
   otkaziRezervaciju(filmTitle: string): void {
     let rezervisani = JSON.parse(localStorage.getItem('rezervisaniFilmovi') || '[]');
     rezervisani = rezervisani.filter((film: any) => film.title !== filmTitle);
@@ -148,22 +137,10 @@ export class FilmoviComponent {
     this.loadRezervisaniFilmovi();
   }
 
-  // ✅ Filtracija filmova
-  filterMovies(): void {
-    const selectedYear = this.searchYear ? new Date(this.searchYear).getFullYear().toString() : '';
-
-    this.filteredFilmovi = this.filmovi.filter(film =>
-        film.title.toLowerCase().includes(this.searchTitle.toLowerCase()) &&
-        film.director?.name?.toLowerCase().includes(this.searchDirector.toLowerCase()) &&
-        (selectedYear ? film.startDate.toString().includes(selectedYear) : true)
-    );
-  }
-
   get isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  // ✅ Dodavanje u korpu i osvežavanje
   dodajUKorpu(film: any): void {
     if (!this.isLoggedIn) {
       alert("Morate biti prijavljeni da biste dodali film u korpu!");
@@ -180,11 +157,10 @@ export class FilmoviComponent {
     korpa.push(film);
     localStorage.setItem('korpa', JSON.stringify(korpa));
 
-    this.korpaOsvezena.emit(); // ✅ Obaveštava `AppComponent` da osveži korpu
+    this.korpaOsvezena.emit();
     this.ucitajKorpu();
   }
 
-  // ✅ Učitavanje korpe
   ucitajKorpu(): void {
     this.korpa = JSON.parse(localStorage.getItem('korpa') || '[]');
   }
