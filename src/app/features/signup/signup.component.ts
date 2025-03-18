@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule] // ✅ DODAJEMO OVO
+  imports: [NgIf, ReactiveFormsModule] 
 })
 
 
