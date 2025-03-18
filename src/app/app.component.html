@@ -16,8 +16,18 @@
           <li><a routerLink="/about">About</a></li>
           <li><a routerLink="/contact">Contact</a></li>
         </ul>
+
         <ul class="login-nav">
-          <li><a routerLink="/login">Login</a></li>
+          <!-- Ako korisnik NIJE prijavljen, prikaži "Login" -->
+          <li *ngIf="!(isAuthenticated$ | async)">
+            <a routerLink="/login">Login</a>
+          </li>
+
+          <!-- Ako korisnik JESTE prijavljen, prikaži ime i "Sign Out" dugme -->
+          <li *ngIf="isAuthenticated$ | async">
+            <span>👤 Dobrodošli!</span>
+            <a href="#" (click)="logout()">Sign Out</a>
+          </li>
         </ul>
       </div>
 
@@ -31,7 +41,7 @@
   <main>
     <router-outlet></router-outlet>
 
-    <!-- ✅ Dodajemo prikaz `app-filmovi` ovde kako bi se korpa osvežila -->
+    <!-- ✅ Dodajemo prikaz `app-filmovi` kako bi se korpa osvežila -->
     <app-filmovi (korpaOsvezena)="ucitajKorpu()"></app-filmovi>
   </main>
 
