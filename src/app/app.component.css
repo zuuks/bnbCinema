@@ -276,22 +276,15 @@ header h1:hover {
   text-shadow: 0px 0px 20px rgba(255, 215, 0, 1);
 }
 
-/* 🔄 Efekat ulaska na stranicu */
-@keyframes fadeInPage {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+
 
 body {
   animation: fadeInPage 0.5s ease-in-out;
 }
 
-
-/* 🎬 Animirani baner */
-/* 🎬 Animirani baner sa sivim tonovima */
 .banner {
   width: 100%;
-  background: linear-gradient(90deg, #444, #666); /* Tamno siva do svetlo siva */
+  background: #111;/* Tamno siva do svetlo siva */
   color: #f5c518; /* Zlatna boja teksta */
   text-align: center;
   padding: 15px;
@@ -299,8 +292,6 @@ body {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
-  box-shadow: 0 4px 8px rgba(100, 100, 100, 0.5);
-  animation: fadeIn 2s ease-in-out;
 }
 
 /* 🎥 Glatko skrolovanje teksta u baneru */
@@ -313,17 +304,6 @@ body {
   padding: 5px;
 }
 
-/* 🌟 Animacija postepenog pojavljivanja */
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-      transform: translateY(-10px);
-  }
-  to {
-      opacity: 1;
-      transform: translateY(0);
-  }
-}
 
 
 /* 🍿 ZANIMLJIVOSTI O FILMOVIMA */
