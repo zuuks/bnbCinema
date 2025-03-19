@@ -11,9 +11,9 @@ export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
-    { path: 'about', component: AboutComponent }, // ✅ Dodata ruta za "About"
+    { path: 'about', component: AboutComponent }, 
     { path: 'filmovi', component: FilmoviComponent },
-    { path: 'rezervacija/:title', component: RezervacijaComponent },  // ✅ Koristimo `title`
+    { path: 'rezervacija/:title', component: RezervacijaComponent },  
     { path: 'contact', component: ContactComponent },
-    { path: '**', redirectTo: '', pathMatch: 'full' } // Catch-all ruta za nepostojeće URL-ove
+    { path: '**', redirectTo: '', pathMatch: 'full' } 
 ];

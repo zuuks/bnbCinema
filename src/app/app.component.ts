@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule], // RouterModule je potreban za rute
+  imports: [CommonModule, RouterModule], 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -19,15 +19,13 @@ export class AppComponent {
   cartOpen: boolean = false;
 
   constructor() {
-    this.ucitajKorpu(); // Učitava korpu pri pokretanju aplikacije
+    this.ucitajKorpu(); 
   }
 
-  // Prikazuje/Sakriva korpu
   toggleCart(): void {
     this.cartOpen = !this.cartOpen;
   }
 
-  // Učitava korpu iz localStorage-a
   ucitajKorpu(): void {
     if (typeof window !== 'undefined' && localStorage) {
       this.korpa = JSON.parse(localStorage.getItem('korpa') || '[]');
@@ -36,19 +34,17 @@ export class AppComponent {
     }
   }
 
-  // Dodaje film u korpu
   dodajUKorpu(rezervacija: any): void {
     this.korpa.push(rezervacija);
     localStorage.setItem('korpa', JSON.stringify(this.korpa));
   }
 
-  // Uklanja film iz korpe
+
   ukloniIzKorpe(rezervacija: any): void {
     this.korpa = this.korpa.filter(item => item !== rezervacija);
     localStorage.setItem('korpa', JSON.stringify(this.korpa));
   }
 
-  // ✅ Potvrda svih rezervacija i pražnjenje korpe
   potvrdiSveRezervacije(): void {
     alert('Rezervacija potvrđena!');
     localStorage.removeItem('korpa');

@@ -1,13 +1,11 @@
 <div class="container">
   <h1>Lista Filmova</h1>
 
-  <!-- 🔍 Input polja za pretragu -->
   <div class="search-container">
       <input type="text" class="search-bar" placeholder="Pretraži po naslovu..." [(ngModel)]="searchTitle" (input)="filterMovies()">
       <input type="text" class="search-bar" placeholder="Pretraži po režiseru..." [(ngModel)]="searchDirector" (input)="filterMovies()">
       <input type="date" class="search-bar" [(ngModel)]="searchYear" (change)="filterMovies()" max="9999-12-31">
   </div>
-<!-- 🎞️ Prikaz filmova -->
 <div class="svifilmovi">
     <div class="lista" *ngFor="let film of filteredFilmovi">
         <div class="film">
@@ -27,7 +25,6 @@
 
 
 
-<!-- 🎟️ Lista rezervisanih filmova -->
 <div *ngIf="rezervisaniFilmovi.length > 0" class="rezervisani-container">
     <h2>🎟️ Moje rezervacije</h2>
     <ul class="rezervisani-list">
@@ -40,19 +37,15 @@
 
 
 
-  <!-- 📌 Modal prozor za prikaz detalja filma -->
   <div *ngIf="selectedFilm" class="modal" (click)="closeModal()">
       <div class="modal-content" (click)="$event.stopPropagation()">
           <span class="close" (click)="closeModal()">&times;</span>
           
-          <!-- 🎬 Prikaz informacija o filmu -->
-          <!-- 🎬 Prikaz informacija o filmu -->
 <h2 class="modal-title">
   {{ selectedFilm.title }}
   <span class="average-rating">⭐ {{ averageRating.toFixed(1) }}</span>
 </h2>
 
-<!-- 🖼️ Smanjena slika filma -->
 <img class="modal-img-small" [src]="selectedFilm.poster" alt="{{ selectedFilm.title }}">
 
 <p><strong>Režiser:</strong> {{ selectedFilm.director.name }}</p>
@@ -62,7 +55,6 @@
 
 <hr>
 
-          <!-- ⭐ Ocenjivanje i komentarisanje -->
           <div class="review-container">
               <h3>Oceni film:</h3>
 
@@ -83,8 +75,6 @@
 
           <hr>
 
-          <!-- 💬 Prikaz komentara sa skrolovanjem -->
-<!-- 💬 Prikaz komentara sa skrolovanjem -->
 <h3>Komentari:</h3>
 <ul class="comments-list">
     <li *ngFor="let review of filmReviews">
@@ -93,7 +83,6 @@
 </ul>
 
 
-<!-- 🗑️ Dugme za brisanje svih komentara -->
 <button class="delete-button" (click)="deleteAllReviews()">🗑️ Obriši sve komentare</button>
 
       </div>

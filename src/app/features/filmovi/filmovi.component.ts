@@ -51,7 +51,7 @@ export class FilmoviComponent {
     try {
         const decoded: any = jwtDecode(token);
         console.log('📢 Dekodirani JWT token:', decoded);
-        return decoded.email || ''; // Koristi `email` iz tokena jer `username` nije dostupan
+        return decoded.email || ''; 
     } catch (error) {
         console.error('❌ Greška pri dekodiranju tokena:', error);
         return '';
@@ -61,7 +61,7 @@ updateUserStatus(): void {
   this.isLoggedIn = !!localStorage.getItem('token');
 
   if (this.isLoggedIn) {
-      this.username = this.getUsernameFromToken(); // ✅ Postavlja dekodovani email kao username
+      this.username = this.getUsernameFromToken();
       if (!this.username) {
           console.error('❌ Nije pronađen username u tokenu!');
       }
@@ -115,11 +115,9 @@ updateUserStatus(): void {
         next: (response) => {
             console.log('✅ Recenzija uspešno sačuvana:', response);
 
-            // ✅ Resetuj polja nakon slanja
             this.selectedComment = ''; 
             this.selectedRating = 5;  
 
-            // ✅ Osveži listu komentara bez reload-a
             this.loadReviews(this.selectedFilm.movieId);
         },
         error: (error) => {

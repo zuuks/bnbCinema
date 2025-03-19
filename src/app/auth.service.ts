@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private apiUrl = 'http://localhost:5000/api/auth'; 
   private userSubject = new BehaviorSubject<boolean>(this.isAuthenticated()); 
-  user$ = this.userSubject.asObservable(); // Observable za praćenje korisničkog statusa
+  user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
