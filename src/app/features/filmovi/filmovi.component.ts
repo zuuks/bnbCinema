@@ -82,6 +82,12 @@ updateUserStatus(): void {
     document.body.classList.remove('no-scroll');
     document.documentElement.classList.remove('no-scroll');
   }
+  loadReviews(movieId: number): void {
+    this.filmoviService.getReviews(movieId).subscribe((reviews: any[]) => {
+      this.filmReviews = reviews;
+      this.calculateAverageRating();
+    });
+  }
 
   submitReview(): void {
     if (!this.isLoggedIn) {
@@ -106,13 +112,15 @@ updateUserStatus(): void {
     console.log('📢 Podaci koji se šalju na backend:', newReview);
 
     this.filmoviService.submitReview(newReview).subscribe({
-        next: () => {
-            // ✅ Osvežavamo listu komentara bez reload-a
-            this.loadReviews(this.selectedFilm.movieId);
+        next: (response) => {
+            console.log('✅ Recenzija uspešno sačuvana:', response);
 
-            // Resetujemo polja
+            // ✅ Resetuj polja nakon slanja
             this.selectedComment = ''; 
             this.selectedRating = 5;  
+
+            // ✅ Osveži listu komentara bez reload-a
+            this.loadReviews(this.selectedFilm.movieId);
         },
         error: (error) => {
             console.error('❌ Greška prilikom slanja recenzije:', error);
@@ -120,14 +128,7 @@ updateUserStatus(): void {
     });
 }
 
-
-  loadReviews(movieId: number): void {
-    this.filmoviService.getReviews(movieId).subscribe((reviews: any[]) => {
-      this.filmReviews = reviews;
-      this.calculateAverageRating();
-    });
-  }
-
+ 
   calculateAverageRating(): void {
     if (this.filmReviews.length === 0) {
       this.averageRating = 0;

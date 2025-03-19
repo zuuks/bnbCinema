@@ -68,7 +68,8 @@ app.post('/reviews', authenticateUser, (req, res) => {
             console.error('❌ Greška pri dodavanju recenzije:', err, { filmId, username, email, rating, comment });
             return res.status(500).json(err);
         }
-        res.status(201).send('✅ Recenzija sačuvana');
+        res.status(201).json({ message: 'Recenzija sačuvana' });
+
     });
 });
 
