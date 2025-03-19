@@ -21,10 +21,14 @@ export class FilmoviService {
     return this.http.get<any[]>(`${this.localApiUrl}/reviews?filmId=${movieId}`);
   }
 
-  // Slanje nove recenzije u MySQL bazu
-  submitReview(review: { filmId: number; username: string; rating: number; comment: string }): Observable<any> {
-    return this.http.post(`${this.localApiUrl}/reviews`, review);
-  }
+  submitReview(review: { filmId: number; rating: number; comment: string }) {
+    const token = localStorage.getItem('token');
+    const headers = { Authorization: `Bearer ${token}` };
+
+    return this.http.post(`${this.localApiUrl}/reviews`, review, { headers });
+}
+
+
 
   // Brisanje svih recenzija za određeni film
   deleteReviews(movieId: number): Observable<any> {
