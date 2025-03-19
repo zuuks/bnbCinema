@@ -1,21 +1,18 @@
-/* 🎬 Glavni kontejner */
 .home-container {
     text-align: center;
     padding: 20px;
 }
 
-/* 🎞️ Slider filmova */
 .slider {
     display: flex;
-    justify-content: center; /* Centriranje filmova */
+    justify-content: center; 
     align-items: center;
-    gap: 20px; /* Razmak između filmova */
-    flex-wrap: wrap; /* Omogućava prelamanje filmova */
+    gap: 20px; 
+    flex-wrap: wrap;
     max-width: 80%;
-    margin: 0 auto; /* Centriranje */
+    margin: 0 auto;
 }
 
-/* 🎬 Pojedinačni film */
 .slide {
     background: #222;
     border-radius: 10px;
@@ -25,7 +22,7 @@
 }
 
 .slide img {
-    width: 230px; /* Smanjena veličina postera */
+    width: 230px; 
     height: auto;
     border-radius: 10px;
     display: block;
@@ -36,7 +33,6 @@
     transform: scale(1.05);
 }
 
-/* 🏆 Tekst ispod slajdera */
 .home-text {
     max-width: 800px;
     margin: 20px auto;
@@ -44,7 +40,6 @@
     font-size: 18px;
 }
 
-/* 🎟️ Dugme za pregled filmova */
 .home-button {
     display: inline-block;
     padding: 12px 20px;
@@ -62,7 +57,6 @@
 }
 
 
-/* 🔥 Tekstualni deo */
 .home-text {
     margin-top: 40px;
     font-size: 18px;
@@ -70,7 +64,6 @@
     text-align: center;
 }
 
-/* 🎟️ Dugme za pregled filmova */
 .home-button {
     display: inline-block;
     margin-top: 20px;
@@ -91,7 +84,6 @@
     transform: scale(1.1);
 }
 
-/* 📱 Responsive dizajn */
 @media (max-width: 768px) {
     .slider {
         justify-content: center;

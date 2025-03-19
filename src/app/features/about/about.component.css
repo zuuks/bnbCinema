@@ -1,4 +1,3 @@
-/* 📽️ Glavni kontejner */
 .about-container {
     max-width: 1200px;
     margin: auto;
@@ -7,7 +6,6 @@
     color: #f5c518;
 }
 
-/* 🎬 Naslov */
 .about-container h1 {
     font-size: 36px;
     margin-bottom: 20px;
@@ -16,7 +14,6 @@
     animation: fadeIn 1s ease-in-out;
 }
 
-/* 🎞️ Raspored sadržaja */
 .about-content {
     display: flex;
     align-items: center;
@@ -24,7 +21,6 @@
     flex-wrap: wrap;
 }
 
-/* 🖼️ Stil slike */
 .about-image {
     width: 45%;
     max-height: 400px;
@@ -34,13 +30,11 @@
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-/* ✨ Animacija slike pri hoveru */
 .about-image:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 20px rgba(255, 204, 0, 1);
 }
 
-/* 📜 Tekst */
 .about-text {
     width: 50%;
     text-align: left;
@@ -51,13 +45,11 @@
     animation: fadeUp 1s ease-in-out forwards;
 }
 
-/* 🎭 Naslovi unutar teksta */
 .about-text h2, .about-text h3 {
     color: #ffcc00;
     margin-top: 20px;
 }
 
-/* 📝 Stil liste */
 .about-text ul {
     list-style: none;
     padding: 0;
@@ -71,7 +63,6 @@
     animation: fadeIn 1s ease-in-out;
 }
 
-/* Dodajemo ikonicu */
 .about-text li::before {
     content: "✔️";
     position: absolute;
@@ -80,7 +71,6 @@
     font-size: 18px;
 }
 
-/* 📱 Responsive dizajn */
 @media (max-width: 768px) {
     .about-content {
         flex-direction: column;

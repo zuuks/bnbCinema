@@ -1,14 +1,12 @@
 <div class="home-container">
   <h1>Dobrodošli u BNB Cinema 🎬</h1>
 
-  <!-- 🎞️ SLIDER FILMOVA -->
   <div class="slider">
     <div class="slide" *ngFor="let film of randomFilmovi">
       <img [src]="film.poster" [alt]="film.title">
     </div>
   </div>
 
-  <!-- 🔥 OPIS BIOSKOPA -->
   <div class="home-text">
     <h2>Najbolji bioskopski doživljaj u gradu! 🍿</h2>
     <p>
@@ -17,6 +15,5 @@
     </p>
   </div>
 
-  <!-- 🎟️ Dugme za pregled filmova -->
   <a href="/filmovi" class="home-button">🎟️ Pogledaj filmove</a>
 </div>

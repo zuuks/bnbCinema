@@ -1,9 +1,8 @@
-/* 📏 Resetovanje širine i margina */
 html, body {
     margin: 0;
     padding: 0;
     width: 100vw;
-    overflow-x: hidden; /* ✅ Sprečava horizontalno skrolovanje */
+    overflow-x: hidden; 
     box-sizing: border-box;
 }
 .app {
@@ -14,7 +13,6 @@ html, body {
   margin: 0 auto;
 }
 
-/* Zaglavlje */
 header {
   background-color: #000;
   color: #f5c518;
@@ -30,7 +28,6 @@ header h1 {
   text-transform: uppercase;
 }
 
-/* 🎬 Navigacija */
 nav {
 display: flex;
 justify-content: space-between;
@@ -41,19 +38,16 @@ background-color: #111;
 border-bottom: 3px solid #f5c518;
 }
 
-/* Leva strana navigacije */
 .nav-left {
 display: flex;
 align-items: center;
 }
 
-/* Desna strana navigacije */
 .nav-right {
 display: flex;
 align-items: center;
 }
 
-/* Glavni stil za navigacione liste */
 nav ul {
 list-style: none;
 padding: 0;
@@ -61,7 +55,6 @@ margin: 0;
 display: flex;
 }
 
-/* Stilizacija svake stavke navigacije */
 nav ul li {
 margin: 0 15px;
 }
@@ -81,7 +74,6 @@ nav a:hover {
   border-radius: 5px;
 }
 
-/* Glavni sadrzaj */
 main {
   flex-grow: 1;
   padding: 20px;
@@ -96,7 +88,6 @@ h4 {
   margin-bottom: 20px;
 }
 
-/* Footer */
 footer {
   background-color: #000;
   color: #f5c518;
@@ -117,9 +108,8 @@ footer a:hover {
 
 
 
-/* 🎟️ Stil za Login dugme */
 .login-nav {
-  margin-left: 50px; /* Pomeramo login skroz desno */
+  margin-left: 50px;
 }
 
 .login-nav a {
@@ -152,7 +142,6 @@ font-weight: bold;
 background: #d4a017;
 }
 
-/* Modal korpe */
 .cart-modal {
 position: fixed;
 top: 60px;
@@ -191,9 +180,7 @@ border-radius: 5px;
 background: #218838;
 }
 
-/* 🎬 ANIMACIJE & INTERAKTIVNOST */
 
-/* Efekat pulsiranja za Login dugme */
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
@@ -204,7 +191,6 @@ background: #218838;
     animation: pulse 1.5s infinite;
 }
 
-/* 🛒 Korpa animacija kada se otvori */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -214,7 +200,6 @@ background: #218838;
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* 🚀 Hover efekti za navigaciju */
 nav a {
     position: relative;
     transition: color 0.3s, background 0.3s;
@@ -236,7 +221,6 @@ nav a:hover::after {
     left: 0;
 }
 
-/* 🟡 Dugme korpe - animacija pri hoveru */
 .cart-container {
   transition: all 0.3s ease-in-out;
 }
@@ -245,7 +229,6 @@ nav a:hover::after {
   transform: scale(1.1) rotate(-2deg);
 }
 
-/* 🎟️ Dugme "Potvrdi sve" - animacija klikom */
 .confirm-button {
   transition: background 0.3s, transform 0.2s;
 }
@@ -254,7 +237,6 @@ nav a:hover::after {
   transform: scale(0.95);
 }
 
-/* ✨ Pojavljivanje modala */
 @keyframes modalPop {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
@@ -264,7 +246,6 @@ nav a:hover::after {
   animation: modalPop 0.3s ease-in-out;
 }
 
-/* 🎥 Glow efekat na naslov */
 header h1 {
   text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8);
   transition: text-shadow 0.3s ease-in-out;
@@ -282,8 +263,8 @@ body {
 
 .banner {
   width: 100%;
-  background: #111;/* Tamno siva do svetlo siva */
-  color: #f5c518; /* Zlatna boja teksta */
+  background: #111;
+  color: #f5c518; 
   text-align: center;
   padding: 15px;
   font-size: 20px;
@@ -293,7 +274,6 @@ body {
 
 }
 
-/* 🎥 Glatko skrolovanje teksta u baneru */
 .banner marquee {
   font-size: 22px;
   font-weight: bold;
@@ -305,7 +285,6 @@ body {
 
 
 
-/* 🍿 ZANIMLJIVOSTI O FILMOVIMA */
 .trivia-section {
   background: #222;
   padding: 20px;
@@ -336,7 +315,6 @@ body {
   border-bottom: none;
 }
 
-/* ⭐ DUGME ZA NASUMIČNU PREPORUKU FILMA */
 .random-movie-container {
   text-align: center;
   margin-top: 20px;
@@ -360,7 +338,6 @@ body {
   background: linear-gradient(45deg, #ff6600, #ffcc00);
 }
 
-/* ✨ PRIKAZ PREPORUČENOG FILMA */
 .random-movie-container p {
   color: #f5c518;
   font-size: 20px;

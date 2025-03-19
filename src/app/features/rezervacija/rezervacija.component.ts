@@ -12,7 +12,7 @@ import { FilmoviService } from '../filmovi/filmovi.service';
   styleUrls: ['./rezervacija.component.css']
 })
 export class RezervacijaComponent implements OnInit {
-  @Output() korpaOsvezena = new EventEmitter<void>(); // Emituje signal da je korpa ažurirana
+  @Output() korpaOsvezena = new EventEmitter<void>(); 
   
   film: any = null;
   korisnickoIme: string = '';
@@ -46,12 +46,10 @@ export class RezervacijaComponent implements OnInit {
       datum: this.datum
     };
 
-    // 📦 Dodajemo rezervaciju u korpu
     let korpa = JSON.parse(localStorage.getItem('korpa') || '[]');
     korpa.push(rezervacija);
     localStorage.setItem('korpa', JSON.stringify(korpa));
 
-    // ✅ Emitujemo event kako bi AppComponent osvežio korpu
     this.korpaOsvezena.emit();
 
     alert(`"${this.film.title}" je dodat u korpu!`);

@@ -1,4 +1,3 @@
-/* 🎬 Glavni kontejner za rezervaciju */
 .rezervacija-container {
     max-width: 600px;
     margin: 40px auto;
@@ -11,38 +10,34 @@
     transition: transform 0.3s ease-in-out;
 }
 
-/* 🎬 Popravljena sekcija sa slikom filma */
 .film-info {
     display: flex;
-    justify-content: center; /* Centriranje slike */
+    justify-content: center; 
     align-items: center;
     flex-direction: column;
     width: 100%;
 }
 
-/* 🖼️ Slika filma - ISPRAVLJENO */
 .film-info img {
-    width: auto;  /* Očuvanje proporcija */
-    max-width: 100%; /* Da ne prelazi kontejner */
-    height: 400px; /* Fiksna visina za ujednačen prikaz */
-    object-fit: cover; /* Osigurava da se slika pravilno prikaže */
+    width: auto;  
+    max-width: 100%; 
+    height: 400px; 
+    object-fit: cover; 
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(255, 204, 0, 0.5);
 }
 
 
-/* 📝 Forma */
 form {
     display: flex;
     flex-direction: column;
     gap: 15px;
     padding: 15px;
-    background: rgba(255, 215, 0, 0.1); /* Blaga zlatna nijansa */
+    background: rgba(255, 215, 0, 0.1); 
     border-radius: 10px;
     box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.2);
 }
 
-/* 🏷️ Label */
 label {
     font-size: 16px;
     font-weight: bold;
@@ -50,7 +45,6 @@ label {
     color: #ffcc00;
 }
 
-/* 🔘 Input polja */
 input {
     padding: 12px;
     border: 2px solid #f5c518;
@@ -62,14 +56,12 @@ input {
     transition: 0.3s;
 }
 
-/* 🎯 Fokus na input */
 input:focus {
     border-color: #ffcc00;
     background: #222;
     outline: none;
 }
 
-/* 🎟 Dugme za potvrdu rezervacije */
 button {
     padding: 12px;
     background: linear-gradient(45deg, #ffcc00, #ff6600);
@@ -84,26 +76,23 @@ button {
     box-shadow: 0 4px 8px rgba(255, 204, 0, 0.5);
 }
 
-/* 🎟 Efekti na dugmetu */
 button:hover {
     background: linear-gradient(45deg, #ff6600, #ffcc00);
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(255, 204, 0, 0.7);
 }
 
-/* 🎟 Efekat klika */
 button:active {
     transform: scale(0.95);
 }
 
-/* 📱 Responsivan dizajn */
 @media (max-width: 768px) {
     .rezervacija-container {
         max-width: 90%;
     }
 
     .film-info img {
-        max-height: 200px; /* Smanjena visina slike na mobilnim uređajima */
+        max-height: 200px; 
     }
 
     button {

@@ -1,4 +1,3 @@
-/* Postavljamo pozadinu i centriramo register formu */
 body, html {
     height: 100%;
     margin: 0;
@@ -8,7 +7,6 @@ body, html {
     align-items: center;
   }
   
-  /* Wrapper za centriranje register forme */
   .register-wrapper {
     display: flex;
     justify-content: center;
@@ -17,7 +15,6 @@ body, html {
     height: 50vh;
   }
   
-  /* Glavni kontejner za registraciju */
   .register-container {
     width: 350px;
     padding: 50px;
@@ -28,13 +25,11 @@ body, html {
     box-shadow: 0 0 15px rgba(245, 197, 24, 0.5);
   }
   
-  /* Naslov */
   h2 {
     margin-bottom: 20px;
     font-size: 24px;
   }
   
-  /* Input polja */
   .input-group {
     margin-bottom: 15px;
     text-align: left;
@@ -56,7 +51,6 @@ body, html {
     font-size: 14px;
   }
   
-  /* Dugme */
   button {
     width: 100%;
     padding: 12px;
@@ -74,7 +68,6 @@ body, html {
     background: #d4a017;
   }
   
-  /* Tekst za prijavu */
   .login-text {
     margin-top: 15px;
     font-size: 14px;
