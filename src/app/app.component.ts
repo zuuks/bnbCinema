@@ -55,4 +55,13 @@ export class AppComponent {
     this.korpa = [];
     this.toggleCart();
   }
+
+  preporuceniFilm: string | null = null;
+filmoviLista: string[] = ["Titanic", "Inception", "Avatar", "The Matrix", "Pulp Fiction", "Interstellar", "The Godfather"];
+
+preporuciFilm() {
+  const randomIndex = Math.floor(Math.random() * this.filmoviLista.length);
+  this.preporuceniFilm = this.filmoviLista[randomIndex];
+}
+
 }

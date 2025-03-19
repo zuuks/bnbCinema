@@ -1,194 +1,391 @@
 /* Osnovni stil za bioskopski sajt */
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #000;
-    background-repeat: inherit;
-    color: #f5c518;
-  }
-  
-  .app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    max-width: auto;
-    margin: 0 auto;
-  }
-  
-  /* Zaglavlje */
-  header {
-    background-color: #000;
-    color: #f5c518;
-    padding: 20px;
-    text-align: center;
-    border-bottom: 3px solid #f5c518;
-  }
-  
-  header h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  background-repeat: inherit;
+  color: #f5c518;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: auto;
+  margin: 0 auto;
+}
+
+/* Zaglavlje */
+header {
+  background-color: #000;
+  color: #f5c518;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 3px solid #f5c518;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 /* 🎬 Navigacija */
 nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 15px 20px;
-  background-color: #111;
-  border-bottom: 3px solid #f5c518;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+padding: 15px 20px;
+background-color: #111;
+border-bottom: 3px solid #f5c518;
 }
 
 /* Leva strana navigacije */
 .nav-left {
-  display: flex;
-  align-items: center;
+display: flex;
+align-items: center;
 }
 
 /* Desna strana navigacije */
 .nav-right {
-  display: flex;
-  align-items: center;
+display: flex;
+align-items: center;
 }
 
 /* Glavni stil za navigacione liste */
 nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
+list-style: none;
+padding: 0;
+margin: 0;
+display: flex;
 }
 
 /* Stilizacija svake stavke navigacije */
 nav ul li {
-  margin: 0 15px;
-}
-  
-  nav a {
-    text-decoration: none;
-    color: #f5c518;
-    font-weight: bold;
-    padding: 10px 15px;
-    transition: all 0.3s;
-  }
-  
-  nav a:hover {
-    background-color: #f5c518;
-    color: #000;
-    padding: 10px 20px;
-    border-radius: 5px;
-  }
-  
-  /* Glavni sadrzaj */
-  main {
-    flex-grow: 1;
-    padding: 20px;
-    text-align: center;
-    background-color: #111;
-    color: #6d6a6a;
-  }
-  
-  h4 {
-    font-size: 2rem;
-    color: #f5c518;
-    margin-bottom: 20px;
-  }
-  
-  /* Footer */
-  footer {
-    background-color: #000;
-    color: #f5c518;
-    text-align: center;
-    padding: 15px;
-    border-top: 3px solid #f5c518;
-  }
-  
-  footer a {
-    color: #f5c518;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  footer a:hover {
-    text-decoration: underline;
-  }
-
-
-  
-/* 🎟️ Stil za Login dugme */
-.login-nav {
-    margin-left: 50px; /* Pomeramo login skroz desno */
+margin: 0 15px;
 }
 
-.login-nav a {
-    background-color: #f5c518;
-    color: #000;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
-}
-
-.login-nav a:hover {
-    background-color: #d4a017;
-    transform: scale(1.1);
-}
-
-.cart-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: #f5c518;
-  color: black;
+nav a {
+  text-decoration: none;
+  color: #f5c518;
+  font-weight: bold;
   padding: 10px 15px;
+  transition: all 0.3s;
+}
+
+nav a:hover {
+  background-color: #f5c518;
+  color: #000;
+  padding: 10px 20px;
   border-radius: 5px;
-  cursor: pointer;
+}
+
+/* Glavni sadrzaj */
+main {
+  flex-grow: 1;
+  padding: 20px;
+  text-align: center;
+  background-color: #111;
+  color: #6d6a6a;
+}
+
+h4 {
+  font-size: 2rem;
+  color: #f5c518;
+  margin-bottom: 20px;
+}
+
+/* Footer */
+footer {
+  background-color: #000;
+  color: #f5c518;
+  text-align: center;
+  padding: 15px;
+  border-top: 3px solid #f5c518;
+}
+
+footer a {
+  color: #f5c518;
+  text-decoration: none;
   font-weight: bold;
 }
 
+footer a:hover {
+  text-decoration: underline;
+}
+
+
+
+/* 🎟️ Stil za Login dugme */
+.login-nav {
+  margin-left: 50px; /* Pomeramo login skroz desno */
+}
+
+.login-nav a {
+  background-color: #f5c518;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-nav a:hover {
+  background-color: #d4a017;
+  transform: scale(1.1);
+}
+
+.cart-container {
+position: absolute;
+top: 20px;
+right: 20px;
+background: #f5c518;
+color: black;
+padding: 10px 15px;
+border-radius: 5px;
+cursor: pointer;
+font-weight: bold;
+}
+
 .cart-container:hover {
-  background: #d4a017;
+background: #d4a017;
 }
 
 /* Modal korpe */
 .cart-modal {
-  position: fixed;
-  top: 60px;
-  right: 20px;
-  width: 300px;
-  background: #222;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
-  color: #f5c518;
+position: fixed;
+top: 60px;
+right: 20px;
+width: 300px;
+background: #222;
+padding: 15px;
+border-radius: 8px;
+box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+color: #f5c518;
 }
 
 .cart-modal ul {
-  list-style: none;
-  padding: 0;
+list-style: none;
+padding: 0;
 }
 
 .cart-modal ul li {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #f5c518;
+display: flex;
+justify-content: space-between;
+padding: 10px;
+border-bottom: 1px solid #f5c518;
 }
 
 .confirm-button {
-  background: #28a745;
-  color: white;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  cursor: pointer;
-  border-radius: 5px;
+background: #28a745;
+color: white;
+border: none;
+padding: 10px;
+width: 100%;
+cursor: pointer;
+border-radius: 5px;
 }
 
 .confirm-button:hover {
-  background: #218838;
+background: #218838;
+}
+
+/* 🎬 ANIMACIJE & INTERAKTIVNOST */
+
+/* Efekat pulsiranja za Login dugme */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.login-nav a {
+    animation: pulse 1.5s infinite;
+}
+
+/* 🛒 Korpa animacija kada se otvori */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cart-modal {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 🚀 Hover efekti za navigaciju */
+nav a {
+    position: relative;
+    transition: color 0.3s, background 0.3s;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    background: #f5c518;
+    left: 50%;
+    bottom: -5px;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* 🟡 Dugme korpe - animacija pri hoveru */
+.cart-container {
+  transition: all 0.3s ease-in-out;
+}
+
+.cart-container:hover {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+/* 🎟️ Dugme "Potvrdi sve" - animacija klikom */
+.confirm-button {
+  transition: background 0.3s, transform 0.2s;
+}
+
+.confirm-button:active {
+  transform: scale(0.95);
+}
+
+/* ✨ Pojavljivanje modala */
+@keyframes modalPop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.cart-modal {
+  animation: modalPop 0.3s ease-in-out;
+}
+
+/* 🎥 Glow efekat na naslov */
+header h1 {
+  text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8);
+  transition: text-shadow 0.3s ease-in-out;
+}
+
+header h1:hover {
+  text-shadow: 0px 0px 20px rgba(255, 215, 0, 1);
+}
+
+/* 🔄 Efekat ulaska na stranicu */
+@keyframes fadeInPage {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+body {
+  animation: fadeInPage 0.5s ease-in-out;
+}
+
+
+/* 🎬 Animirani baner */
+/* 🎬 Animirani baner sa sivim tonovima */
+.banner {
+  width: 100%;
+  background: linear-gradient(90deg, #444, #666); /* Tamno siva do svetlo siva */
+  color: #f5c518; /* Zlatna boja teksta */
+  text-align: center;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 8px rgba(100, 100, 100, 0.5);
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* 🎥 Glatko skrolovanje teksta u baneru */
+.banner marquee {
+  font-size: 22px;
+  font-weight: bold;
+  color: #f5c518;
+  text-shadow: 2px 2px 4px rgba(255, 215, 0, 0.3);
+  font-family: 'Arial', sans-serif;
+  padding: 5px;
+}
+
+/* 🌟 Animacija postepenog pojavljivanja */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+
+/* 🍿 ZANIMLJIVOSTI O FILMOVIMA */
+.trivia-section {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 0 15px rgba(245, 197, 24, 0.5);
+}
+
+.trivia-section h2 {
+  color: #f5c518;
+}
+
+.trivia-section ul {
+  list-style: none;
+  padding: 0;
+  color: white;
+  font-size: 16px;
+}
+
+.trivia-section li {
+  padding: 8px 0;
+  border-bottom: 1px solid #f5c518;
+}
+
+.trivia-section li:last-child {
+  border-bottom: none;
+}
+
+/* ⭐ DUGME ZA NASUMIČNU PREPORUKU FILMA */
+.random-movie-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.random-movie-btn {
+  background: linear-gradient(45deg, #ffcc00, #ff6600);
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 5px 10px rgba(255, 165, 0, 0.5);
+}
+
+.random-movie-btn:hover {
+  transform: scale(1.1);
+  background: linear-gradient(45deg, #ff6600, #ffcc00);
+}
+
+/* ✨ PRIKAZ PREPORUČENOG FILMA */
+.random-movie-container p {
+  color: #f5c518;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+  animation: fadeIn 0.5s ease-in-out;
 }
