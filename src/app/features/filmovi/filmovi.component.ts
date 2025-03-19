@@ -92,6 +92,11 @@ updateUserStatus(): void {
 
     if (!this.selectedFilm) return;
 
+    if (!this.selectedRating || !this.selectedComment.trim()) {
+        alert('⚠️ Morate uneti sve podatke!');
+        return;
+    }
+
     const newReview = {
         filmId: this.selectedFilm.movieId,
         rating: this.selectedRating,
@@ -102,14 +107,19 @@ updateUserStatus(): void {
 
     this.filmoviService.submitReview(newReview).subscribe({
         next: () => {
+            // ✅ Osvežavamo listu komentara bez reload-a
             this.loadReviews(this.selectedFilm.movieId);
-            this.selectedComment = '';
+
+            // Resetujemo polja
+            this.selectedComment = ''; 
+            this.selectedRating = 5;  
         },
         error: (error) => {
             console.error('❌ Greška prilikom slanja recenzije:', error);
         }
     });
 }
+
 
   loadReviews(movieId: number): void {
     this.filmoviService.getReviews(movieId).subscribe((reviews: any[]) => {
