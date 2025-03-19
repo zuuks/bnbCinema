@@ -17,15 +17,18 @@
           <li><a routerLink="/contact">Contact</a></li>
         </ul>
         <ul class="login-nav">
-          <li><a routerLink="/login">Login</a></li>
+          <li *ngIf="!isLoggedIn"><a routerLink="/login">Prijava</a></li>
+          <li *ngIf="isLoggedIn"><a href="#" (click)="logout()">{{ username }} | Odjava</a></li>
         </ul>
-          <!-- 🛒 Premestili smo korpu ovde, pored Login dugmeta -->
+        
+        <!-- 🛒 Korpa -->
         <div class="cart-container" (click)="toggleCart()">
           🛒 Korpa <span *ngIf="korpa.length > 0">({{ korpa.length }})</span>
         </div>
       </div>
     </nav>
-  </header>
+</header>
+
 
   <div class="banner">
     <marquee scrollamount="7">🎬 Dobrodošli u BNB Cinema - Gledajte najbolje filmove kod nas! 🍿✨</marquee>

@@ -15,7 +15,22 @@
             <div class="filmdole">
                 <div class="film-info">
                     <h2>{{ film.title }}</h2>
-                    <a [attr.href]="'/rezervacija/' + film.title" class="rezervisi-button">🎟️ Rezerviši</a>
+                    
+                    <!-- Ako je korisnik prijavljen, vodi ga na stranicu rezervacije -->
+                    <a 
+                        *ngIf="isLoggedIn" 
+                        [attr.href]="'/rezervacija/' + film.title"
+                        class="rezervisi-button">
+                        🎟️ Rezerviši
+                    </a>
+            
+                    <!-- Ako korisnik NIJE prijavljen, vodi ga na login stranicu -->
+                    <a 
+                        *ngIf="!isLoggedIn" 
+                        [attr.href]="'/login'"
+                        class="rezervisi-button">
+                        🎟️ Rezerviši
+                    </a>
                 </div>
             </div>
         </div>

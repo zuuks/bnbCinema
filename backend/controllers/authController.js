@@ -22,6 +22,7 @@ exports.signup = async (req, res) => {
         );
     });
 };
+
 exports.login = (req, res) => {
     const { email, password } = req.body;
 
@@ -41,13 +42,11 @@ exports.login = (req, res) => {
             return res.status(400).json({ message: 'Neispravan email ili lozinka' });
         }
 
-        // ✅ Proveravamo da li `name` postoji
         if (!user.name) {
             console.error('❌ Greška: Korisničko ime (name) nije pronađeno u bazi!');
             return res.status(500).json({ message: 'Greška: Korisničko ime nije pronađeno' });
         }
 
-        // ✅ Generišemo JWT token sa `name`
         const token = jwt.sign(
             { id: user.id, email: user.email, username: user.name }, 
             process.env.JWT_SECRET, 
@@ -59,9 +58,20 @@ exports.login = (req, res) => {
     });
 };
 
-
-
 exports.logout = (req, res) => {
-    res.json({ message: "Uspešno ste se odjavili" });
+    const token = req.headers.authorization?.split(' ')[1];
 
+    if (!token) {
+        console.warn('⚠️ Pokušaj odjave bez tokena.');
+        return res.status(400).json({ message: "Niste prijavljeni." });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log(`🚪 Korisnik ${decoded.username} (${decoded.email}) se odjavio.`);
+    } catch (err) {
+        console.warn('⚠️ Nevažeći token pri odjavi.');
+    }
+
+    res.json({ message: "Uspešno ste se odjavili" });
 };

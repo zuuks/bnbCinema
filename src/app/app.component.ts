@@ -1,6 +1,7 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,14 @@ export class AppComponent {
 
   korpa: any[] = [];
   cartOpen: boolean = false;
+  isLoggedIn: boolean = false;
+  username: string = '';
+  email: string = '';
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
       this.ucitajKorpu();
+      this.updateLoginStatus();
     }
   }
 
@@ -34,42 +39,90 @@ export class AppComponent {
     }
   }
 
-  // ✅ Automatski osveži korpu kada se promeni stranica
   onActivate(event: any): void {
     this.ucitajKorpu();
+    this.updateLoginStatus();
   }
 
-  potvrdiSveRezervacije(): void {
+  updateLoginStatus(): void {
+    const token = localStorage.getItem('token');
+    this.isLoggedIn = !!token;
+
+    if (token) {
+      try {
+        const decoded: any = jwtDecode(token);
+        this.username = decoded.username || 'Korisnik';
+        this.email = decoded.email || '';
+      } catch (error) {
+        console.error('❌ Greška pri dekodiranju tokena:', error);
+        this.username = 'Korisnik';
+        this.email = '';
+      }
+    }
+  }
+
+  async potvrdiSveRezervacije(): Promise<void> {
     if (this.korpa.length === 0) {
       alert('Vaša korpa je prazna.');
       return;
     }
-  
-    let sveRezervacije = JSON.parse(localStorage.getItem('rezervisaniFilmovi') || '[]');
-    sveRezervacije = sveRezervacije.concat(this.korpa);
-    localStorage.setItem('rezervisaniFilmovi', JSON.stringify(sveRezervacije));
-  
-    alert('Sve rezervacije su uspešno potvrđene!');
-    
-    // Praznimo korpu nakon potvrde
-    this.korpa = [];
-    localStorage.removeItem('korpa');
-    this.toggleCart();
+
+    if (!this.isLoggedIn) {
+      alert('Morate biti prijavljeni da biste potvrdili rezervacije.');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/rezervacije', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          username: this.username,
+          email: this.email,
+          rezervacije: this.korpa
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Došlo je do greške pri potvrdi rezervacija.');
+      }
+
+      alert('Sve rezervacije su uspešno potvrđene i sačuvane u bazi!');
+      this.korpa = [];
+      localStorage.removeItem('korpa');
+      this.toggleCart();
+    } catch (error) {
+      console.error('❌ Greška pri slanju rezervacija:', error);
+      alert('Greška pri slanju rezervacija. Pokušajte ponovo.');
+    }
   }
 
-  
   ukloniIzKorpe(rezervacija: any): void {
     this.korpa = this.korpa.filter(item => item !== rezervacija);
     localStorage.setItem('korpa', JSON.stringify(this.korpa));
   
     alert(`Uklonili ste "${rezervacija.film.title}" iz korpe.`);
   }
-  
-  
+
   preporuceniFilm: string | null = null;
   filmoviLista: string[] = ["Titanic", "Inception", "Avatar", "The Matrix", "Pulp Fiction", "Interstellar", "The Godfather"];
+
   preporuciFilm() {
     const randomIndex = Math.floor(Math.random() * this.filmoviLista.length);
     this.preporuceniFilm = this.filmoviLista[randomIndex];
+  }
+
+  logout(): void {
+    console.log(`🚪 Korisnik ${this.username} se odjavio.`);
+    localStorage.removeItem('token');
+    this.isLoggedIn = false;
+    this.username = '';
+    this.email = '';
+    location.reload();
   }
 }

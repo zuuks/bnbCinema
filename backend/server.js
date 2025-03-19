@@ -25,7 +25,7 @@ const authenticateUser = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log('📢 Dekodirani JWT token:', decoded); // ✅ Provera da li token sadrži username
+        console.log('📢 Dekodirani JWT token:', decoded);
         req.user = decoded;
         next();
     } catch (error) {
@@ -34,7 +34,7 @@ const authenticateUser = (req, res, next) => {
     }
 };
 
-// GET Reviews (Dohvatanje recenzija po filmId)
+// 📌 GET Reviews (Dohvatanje recenzija po filmId)
 app.get('/reviews', (req, res) => {
     const { filmId } = req.query;
     if (!filmId) {
@@ -50,12 +50,12 @@ app.get('/reviews', (req, res) => {
     });
 });
 
-// POST Review (Dodavanje recenzije)
+// 📌 POST Review (Dodavanje recenzije)
 app.post('/reviews', authenticateUser, (req, res) => {
     console.log('📢 Podaci primljeni na backend:', req.body);
 
     const { filmId, rating, comment } = req.body;
-    const { username, email } = req.user; // ✅ Dobijamo username iz tokena
+    const { username, email } = req.user;
 
     if (!filmId || !rating || !comment || !username || !email) {
         console.error('❌ Nedostaju podaci:', { filmId, username, rating, comment });
@@ -69,11 +69,10 @@ app.post('/reviews', authenticateUser, (req, res) => {
             return res.status(500).json(err);
         }
         res.status(201).json({ message: 'Recenzija sačuvana' });
-
     });
 });
 
-// DELETE Reviews (Brisanje svih recenzija za film)
+// 📌 DELETE Reviews (Brisanje svih recenzija za film)
 app.delete('/reviews', (req, res) => {
     const { filmId } = req.query;
     if (!filmId) return res.status(400).send('filmId je obavezan');
@@ -87,5 +86,67 @@ app.delete('/reviews', (req, res) => {
     });
 });
 
+// 📌 POST Rezervacija (Čuvanje rezervacija u bazi)
+app.post('/api/rezervacije', authenticateUser, (req, res) => {
+    console.log('📢 Primljen zahtev za čuvanje rezervacija:', req.body);
+
+    const { rezervacije } = req.body;
+    const { username, email } = req.user;
+
+    if (!rezervacije || !Array.isArray(rezervacije) || rezervacije.length === 0) {
+        return res.status(400).json({ message: 'Nema rezervacija za čuvanje.' });
+    }
+
+    const query = `INSERT INTO reservations (username, email, film_title, broj_karata, datum) VALUES ?`;
+
+    const values = rezervacije.map(rez => [
+        username, 
+        email, 
+        rez.film.title, 
+        rez.brojKarata, 
+        rez.datum
+    ]);
+
+    db.query(query, [values], (err, result) => {
+        if (err) {
+            console.error('❌ Greška pri čuvanju rezervacija:', err);
+            return res.status(500).json({ message: 'Greška pri čuvanju rezervacija.' });
+        }
+
+        console.log(`✅ Uspešno sačuvane rezervacije za korisnika ${username} (${email})`);
+        res.status(201).json({ message: 'Rezervacije uspešno sačuvane!' });
+    });
+});
+
+// 📌 GET Rezervacije (Dohvatanje rezervacija za korisnika)
+app.get('/api/rezervacije', authenticateUser, (req, res) => {
+    const { email } = req.user;
+
+    db.query('SELECT * FROM reservations WHERE email = ?', [email], (err, results) => {
+        if (err) {
+            console.error('❌ Greška pri dohvatanju rezervacija:', err);
+            return res.status(500).json({ message: 'Greška pri dohvatanju rezervacija.' });
+        }
+
+        res.json(results);
+    });
+});
+
+// 📌 DELETE Rezervacije (Brisanje svih rezervacija korisnika)
+app.delete('/api/rezervacije', authenticateUser, (req, res) => {
+    const { email } = req.user;
+
+    db.query('DELETE FROM reservations WHERE email = ?', [email], (err, result) => {
+        if (err) {
+            console.error('❌ Greška pri brisanju rezervacija:', err);
+            return res.status(500).json({ message: 'Greška pri brisanju rezervacija.' });
+        }
+
+        console.log(`🚮 Sve rezervacije obrisane za korisnika ${email}`);
+        res.json({ message: 'Sve rezervacije su obrisane!' });
+    });
+});
+
+// 🚀 Pokretanje servera
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server pokrenut na portu ${PORT}`));
