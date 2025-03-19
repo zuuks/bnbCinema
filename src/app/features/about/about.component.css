@@ -12,6 +12,8 @@
     font-size: 36px;
     margin-bottom: 20px;
     text-transform: uppercase;
+    letter-spacing: 1.5px;
+    animation: fadeIn 1s ease-in-out;
 }
 
 /* 🎞️ Raspored sadržaja */
@@ -25,8 +27,17 @@
 /* 🖼️ Stil slike */
 .about-image {
     width: 45%;
+    max-height: 400px;
+    object-fit: cover;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(255, 204, 0, 0.5);
+    box-shadow: 0 4px 15px rgba(255, 204, 0, 0.7);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* ✨ Animacija slike pri hoveru */
+.about-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 204, 0, 1);
 }
 
 /* 📜 Tekst */
@@ -35,6 +46,9 @@
     text-align: left;
     font-size: 18px;
     line-height: 1.6;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1s ease-in-out forwards;
 }
 
 /* 🎭 Naslovi unutar teksta */
@@ -52,6 +66,18 @@
 .about-text li {
     padding-left: 30px;
     margin-bottom: 10px;
+    font-size: 16px;
+    position: relative;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Dodajemo ikonicu */
+.about-text li::before {
+    content: "✔️";
+    position: absolute;
+    left: 0;
+    color: #ffcc00;
+    font-size: 18px;
 }
 
 /* 📱 Responsive dizajn */
@@ -68,5 +94,26 @@
 
     .about-text {
         width: 100%;
+    }
+}
+
+/* 🔥 Animacije */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
