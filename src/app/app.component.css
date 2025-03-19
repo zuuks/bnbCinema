@@ -1,13 +1,11 @@
-/* Osnovni stil za bioskopski sajt */
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #000;
-  background-repeat: inherit;
-  color: #f5c518;
+/* 📏 Resetovanje širine i margina */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    overflow-x: hidden; /* ✅ Sprečava horizontalno skrolovanje */
+    box-sizing: border-box;
 }
-
 .app {
   display: flex;
   flex-direction: column;
@@ -292,6 +290,7 @@ body {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
+
 }
 
 /* 🎥 Glatko skrolovanje teksta u baneru */
