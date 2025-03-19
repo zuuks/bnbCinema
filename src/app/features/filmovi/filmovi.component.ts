@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./filmovi.component.css']
 })
 export class FilmoviComponent {
-  @Output() korpaOsvezena = new EventEmitter<void>(); // Emituje event za osvežavanje korpe u `AppComponent`
+  @Output() korpaOsvezena = new EventEmitter<void>(); // Emituje event za osvežavanje korpe
 
   filmovi: any[] = [];
   filteredFilmovi: any[] = [];
@@ -29,7 +29,7 @@ export class FilmoviComponent {
   rezervisaniFilmovi: any[] = [];
   korpa: any[] = [];
 
-  constructor(private filmoviService: FilmoviService) { }
+  constructor(private filmoviService: FilmoviService) {}
 
   ngOnInit(): void {
     this.filmoviService.getFilmovi().subscribe((data: any[]) => {
@@ -51,13 +51,8 @@ export class FilmoviComponent {
   }
 
   openFilmDetails(film: any): void {
-    if (!film || !film.movieId) {
-        console.error('Greška: film nema ispravan movieId!', film);
-        return;
-    }
-    
     this.selectedFilm = film;
-    this.loadReviews(film.movieId);
+    this.loadReviews(film.title);
     document.body.classList.add('no-scroll');
     document.documentElement.classList.add('no-scroll');
   }
@@ -79,23 +74,22 @@ export class FilmoviComponent {
     if (!this.selectedFilm) return;
 
     const newReview = {
-      filmId: this.selectedFilm.movieId,
       username: this.username,
-      rating: this.selectedRating,
+      rating: Number(this.selectedRating),
       comment: this.selectedComment
     };
 
-    this.filmoviService.submitReview(newReview).subscribe(() => {
-      this.loadReviews(this.selectedFilm.movieId);
-      this.selectedComment = '';
-    });
+    let reviews = JSON.parse(localStorage.getItem(this.selectedFilm.title) || '[]');
+    reviews.push(newReview);
+    localStorage.setItem(this.selectedFilm.title, JSON.stringify(reviews));
+
+    this.loadReviews(this.selectedFilm.title);
+    this.selectedComment = '';
   }
 
-  loadReviews(movieId: number): void {
-    this.filmoviService.getReviews(movieId).subscribe((reviews: any[]) => {
-      this.filmReviews = reviews;
-      this.calculateAverageRating();
-    });
+  loadReviews(filmTitle: string): void {
+    this.filmReviews = JSON.parse(localStorage.getItem(filmTitle) || '[]');
+    this.calculateAverageRating();
   }
 
   calculateAverageRating(): void {
@@ -110,10 +104,9 @@ export class FilmoviComponent {
 
   deleteAllReviews(): void {
     if (!this.selectedFilm) return;
-    this.filmoviService.deleteReviews(this.selectedFilm.movieId).subscribe(() => {
-      this.filmReviews = [];
-      this.averageRating = 0;
-    });
+    localStorage.removeItem(this.selectedFilm.title);
+    this.filmReviews = [];
+    this.averageRating = 0;
   }
 
   filterMovies(): void {

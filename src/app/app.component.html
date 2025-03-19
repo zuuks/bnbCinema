@@ -18,16 +18,7 @@
         </ul>
 
         <ul class="login-nav">
-          <!-- Ako korisnik NIJE prijavljen, prikaži "Login" -->
-          <li *ngIf="!(isAuthenticated$ | async)">
-            <a routerLink="/login">Login</a>
-          </li>
-
-          <!-- Ako korisnik JESTE prijavljen, prikaži ime i "Sign Out" dugme -->
-          <li *ngIf="isAuthenticated$ | async">
-            <span>👤 Dobrodošli!</span>
-            <a href="#" (click)="logout()">Sign Out</a>
-          </li>
+          <li><a routerLink="/login">Login</a></li>
         </ul>
       </div>
 
@@ -40,9 +31,6 @@
 
   <main>
     <router-outlet></router-outlet>
-
-    <!-- ✅ Dodajemo prikaz `app-filmovi` kako bi se korpa osvežila -->
-    <app-filmovi (korpaOsvezena)="ucitajKorpu()"></app-filmovi>
   </main>
 
   <!-- 📦 Prikaz korpe -->
@@ -51,7 +39,9 @@
       <h2>🛒 Vaša korpa</h2>
       <ul>
         <li *ngFor="let rezervacija of korpa">
-          🎟️ <strong>{{ rezervacija.film.title }}</strong> - {{ rezervacija.brojKarata }} karata, {{ rezervacija.datum }}
+          🎟️ <strong>{{ rezervacija.film.title }}</strong> - 
+          {{ rezervacija.brojKarata }} karata, 
+          {{ rezervacija.datum }}
           <button (click)="ukloniIzKorpe(rezervacija)">❌</button>
         </li>
       </ul>

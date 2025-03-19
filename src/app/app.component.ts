@@ -1,40 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService } from './auth.service'; // Dodaj AuthService
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule], // RouterModule je potreban za rute
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'BNB Cinema';
-
+  
   footerUrl = '/about';
   footerLink = 'Saznaj više';
 
   korpa: any[] = [];
   cartOpen: boolean = false;
-  isAuthenticated$: Observable<boolean>; // Observable za praćenje login statusa
 
-  constructor(private authService: AuthService) {
-    this.isAuthenticated$ = this.authService.user$; // Postavljamo observable iz AuthService-a
-    this.ucitajKorpu();
+  constructor() {
+    this.ucitajKorpu(); // Učitava korpu pri pokretanju aplikacije
   }
 
-  ngOnInit() {
-    this.isAuthenticated$ = this.authService.user$;
-  }
-
-  // Prikaži/Sakrij korpu
+  // Prikazuje/Sakriva korpu
   toggleCart(): void {
     this.cartOpen = !this.cartOpen;
   }
 
+  // Učitava korpu iz localStorage-a
   ucitajKorpu(): void {
     if (typeof window !== 'undefined' && localStorage) {
       this.korpa = JSON.parse(localStorage.getItem('korpa') || '[]');
@@ -43,13 +36,13 @@ export class AppComponent implements OnInit {
     }
   }
 
-  // Dodaj u korpu
+  // Dodaje film u korpu
   dodajUKorpu(rezervacija: any): void {
     this.korpa.push(rezervacija);
     localStorage.setItem('korpa', JSON.stringify(this.korpa));
   }
 
-  // Ukloni iz korpe
+  // Uklanja film iz korpe
   ukloniIzKorpe(rezervacija: any): void {
     this.korpa = this.korpa.filter(item => item !== rezervacija);
     localStorage.setItem('korpa', JSON.stringify(this.korpa));
@@ -57,18 +50,9 @@ export class AppComponent implements OnInit {
 
   // ✅ Potvrda svih rezervacija i pražnjenje korpe
   potvrdiSveRezervacije(): void {
-    let sveRezervacije = JSON.parse(localStorage.getItem('rezervisaniFilmovi') || '[]');
-    sveRezervacije = sveRezervacije.concat(this.korpa);
-    localStorage.setItem('rezervisaniFilmovi', JSON.stringify(sveRezervacije));
-
-    alert('Sve rezervacije su uspešno potvrđene!');
-    this.korpa = [];
+    alert('Rezervacija potvrđena!');
     localStorage.removeItem('korpa');
+    this.korpa = [];
     this.toggleCart();
-  }
-
-  // ✅ Logout funkcija
-  logout() {
-    this.authService.logout();
   }
 }

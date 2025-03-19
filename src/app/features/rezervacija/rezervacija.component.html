@@ -10,14 +10,15 @@
 
     <form>
         <label for="korisnickoIme">Vaše ime:</label>
-        <input type="text" id="korisnickoIme" [(ngModel)]="korisnickoIme" required>
-
+        <input type="text" id="korisnickoIme" [(ngModel)]="korisnickoIme" name="korisnickoIme" required>
+    
         <label for="brojKarata">Broj karata:</label>
-        <input type="number" id="brojKarata" [(ngModel)]="brojKarata" min="1" required>
-
+        <input type="number" id="brojKarata" [(ngModel)]="brojKarata" name="brojKarata" min="1" required>
+    
         <label for="datum">Datum projekcije:</label>
-        <input type="date" id="datum" [(ngModel)]="datum" required>
-
+        <input type="date" id="datum" [(ngModel)]="datum" name="datum" required>
+    
         <button type="button" (click)="potvrdiRezervaciju()">Potvrdi rezervaciju</button>
     </form>
+    
 </div>

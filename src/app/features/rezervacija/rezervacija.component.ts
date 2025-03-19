@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,8 @@ import { FilmoviService } from '../filmovi/filmovi.service';
   styleUrls: ['./rezervacija.component.css']
 })
 export class RezervacijaComponent implements OnInit {
+  @Output() korpaOsvezena = new EventEmitter<void>(); // Emituje signal da je korpa ažurirana
+  
   film: any = null;
   korisnickoIme: string = '';
   brojKarata: number = 1;
@@ -39,17 +41,20 @@ export class RezervacijaComponent implements OnInit {
 
     const rezervacija = {
       film: this.film,
-      korisnickoIme: this.korisnickoIme,
+      korisnickoIme: this.korisnickoIme.trim(),
       brojKarata: this.brojKarata,
       datum: this.datum
     };
 
+    // 📦 Dodajemo rezervaciju u korpu
     let korpa = JSON.parse(localStorage.getItem('korpa') || '[]');
     korpa.push(rezervacija);
     localStorage.setItem('korpa', JSON.stringify(korpa));
 
+    // ✅ Emitujemo event kako bi AppComponent osvežio korpu
+    this.korpaOsvezena.emit();
+
     alert(`"${this.film.title}" je dodat u korpu!`);
     this.router.navigate(['/filmovi']);
-}
-
+  }
 }
