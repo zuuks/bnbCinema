@@ -88,9 +88,10 @@
 <h3>Komentari:</h3>
 <ul class="comments-list">
     <li *ngFor="let review of filmReviews">
-        <strong>Ocena:</strong> {{ review.rating }} ⭐ - {{ review.comment }}
+        <strong>Ocena:</strong> {{ review.rating }} ⭐ - {{ review.comment }} | {{ review.username }}
     </li>
 </ul>
+
 
 <!-- 🗑️ Dugme za brisanje svih komentara -->
 <button class="delete-button" (click)="deleteAllReviews()">🗑️ Obriši sve komentare</button>

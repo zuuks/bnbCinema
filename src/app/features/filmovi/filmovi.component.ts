@@ -2,6 +2,9 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FilmoviService } from './filmovi.service';
 import { FormsModule } from '@angular/forms';
+import { jwtDecode } from 'jwt-decode';
+
+import { Router } from '@angular/router'; // ✅ Import za preusmeravanje
 
 @Component({
   selector: 'app-filmovi',
@@ -29,7 +32,7 @@ export class FilmoviComponent {
   rezervisaniFilmovi: any[] = [];
   korpa: any[] = [];
 
-  constructor(private filmoviService: FilmoviService) {}
+  constructor(private filmoviService: FilmoviService, private router: Router) {} // ✅ Dodali smo Router za preusmeravanje
 
   ngOnInit(): void {
     this.filmoviService.getFilmovi().subscribe((data: any[]) => {
@@ -41,18 +44,33 @@ export class FilmoviComponent {
     this.loadRezervisaniFilmovi();
     this.ucitajKorpu();
   }
+  getUsernameFromToken(): string {
+    const token = localStorage.getItem('token');
+    if (!token) return '';
 
-  updateUserStatus(): void {
-    this.isLoggedIn = !!localStorage.getItem('token');
-    if (this.isLoggedIn) {
-      const user = localStorage.getItem('user');
-      this.username = user ? JSON.parse(user).name : '';
+    try {
+        const decoded: any = jwtDecode(token);
+        console.log('📢 Dekodirani JWT token:', decoded);
+        return decoded.email || ''; // Koristi `email` iz tokena jer `username` nije dostupan
+    } catch (error) {
+        console.error('❌ Greška pri dekodiranju tokena:', error);
+        return '';
     }
+}
+updateUserStatus(): void {
+  this.isLoggedIn = !!localStorage.getItem('token');
+
+  if (this.isLoggedIn) {
+      this.username = this.getUsernameFromToken(); // ✅ Postavlja dekodovani email kao username
+      if (!this.username) {
+          console.error('❌ Nije pronađen username u tokenu!');
+      }
   }
+}
 
   openFilmDetails(film: any): void {
     this.selectedFilm = film;
-    this.loadReviews(film.title);
+    this.loadReviews(film.movieId);
     document.body.classList.add('no-scroll');
     document.documentElement.classList.add('no-scroll');
   }
@@ -67,29 +85,37 @@ export class FilmoviComponent {
 
   submitReview(): void {
     if (!this.isLoggedIn) {
-      alert('Morate biti prijavljeni da biste komentarisali!');
-      return;
+        console.warn('⚠️ Korisnik nije prijavljen! Preusmeravanje na login...');
+        this.router.navigate(['/login']);
+        return;
     }
 
     if (!this.selectedFilm) return;
 
     const newReview = {
-      username: this.username,
-      rating: Number(this.selectedRating),
-      comment: this.selectedComment
+        filmId: this.selectedFilm.movieId,
+        rating: this.selectedRating,
+        comment: this.selectedComment
     };
 
-    let reviews = JSON.parse(localStorage.getItem(this.selectedFilm.title) || '[]');
-    reviews.push(newReview);
-    localStorage.setItem(this.selectedFilm.title, JSON.stringify(reviews));
+    console.log('📢 Podaci koji se šalju na backend:', newReview);
 
-    this.loadReviews(this.selectedFilm.title);
-    this.selectedComment = '';
-  }
+    this.filmoviService.submitReview(newReview).subscribe({
+        next: () => {
+            this.loadReviews(this.selectedFilm.movieId);
+            this.selectedComment = '';
+        },
+        error: (error) => {
+            console.error('❌ Greška prilikom slanja recenzije:', error);
+        }
+    });
+}
 
-  loadReviews(filmTitle: string): void {
-    this.filmReviews = JSON.parse(localStorage.getItem(filmTitle) || '[]');
-    this.calculateAverageRating();
+  loadReviews(movieId: number): void {
+    this.filmoviService.getReviews(movieId).subscribe((reviews: any[]) => {
+      this.filmReviews = reviews;
+      this.calculateAverageRating();
+    });
   }
 
   calculateAverageRating(): void {
@@ -104,9 +130,10 @@ export class FilmoviComponent {
 
   deleteAllReviews(): void {
     if (!this.selectedFilm) return;
-    localStorage.removeItem(this.selectedFilm.title);
-    this.filmReviews = [];
-    this.averageRating = 0;
+    this.filmoviService.deleteReviews(this.selectedFilm.movieId).subscribe(() => {
+      this.filmReviews = [];
+      this.averageRating = 0;
+    });
   }
 
   filterMovies(): void {
