@@ -10,7 +10,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
-    importProvidersFrom(ReactiveFormsModule) // Dodajemo Angular Forms podršku
+    importProvidersFrom(ReactiveFormsModule) 
   ]
 
 }).catch((err) => console.error(err));

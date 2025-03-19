@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FilmoviService } from '../filmovi/filmovi.service';
 
@@ -22,7 +22,8 @@ export class RezervacijaComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private filmoviService: FilmoviService
+    private filmoviService: FilmoviService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
@@ -46,13 +47,15 @@ export class RezervacijaComponent implements OnInit {
       datum: this.datum
     };
 
-    let korpa = JSON.parse(localStorage.getItem('korpa') || '[]');
-    korpa.push(rezervacija);
-    localStorage.setItem('korpa', JSON.stringify(korpa));
+    if (isPlatformBrowser(this.platformId)) {
+      let korpa = JSON.parse(localStorage.getItem('korpa') || '[]');
+      korpa.push(rezervacija);
+      localStorage.setItem('korpa', JSON.stringify(korpa));
+    }
 
-    this.korpaOsvezena.emit();
+    this.korpaOsvezena.emit(); // ✅ Obavesti AppComponent da osveži korpu
 
     alert(`"${this.film.title}" je dodat u korpu!`);
-    this.router.navigate(['/filmovi']);
+    this.router.navigate(['/filmovi']); // ✅ Prelazak na filmove
   }
 }
