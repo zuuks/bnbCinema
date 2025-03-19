@@ -44,7 +44,6 @@
     color: #f5c518;
     
 }
-/* 🎟️ Dugme za pregled filmova */
 .home-button {
     display: inline-block;
     padding: 15px 25px;
@@ -60,6 +59,7 @@
     overflow: hidden;
     text-align: center;
     white-space: nowrap;
+    animation: pulsate 2s infinite alternate;
 }
 
 /* 🎟️ Efekat hover-a */
@@ -67,6 +67,7 @@
     background: linear-gradient(45deg, #ff6600, #ffcc00);
     transform: scale(1.1);
     box-shadow: 0 6px 12px rgba(255, 204, 0, 0.7);
+    animation: shake 0.3s ease-in-out;
 }
 
 /* 🎟️ Efekat klika */
@@ -74,6 +75,36 @@
     transform: scale(0.95);
 }
 
+/* 🎬 Pulsirajući efekat */
+@keyframes pulsate {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 204, 0, 1);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 204, 0, 1);
+    }
+}
+
+
+/* 🎟️ Efekat svetlucanja */
+.home-button::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, rgba(255, 255, 255, 0) 50%);
+    transition: all 0.4s ease-in-out;
+    opacity: 0;
+}
+
+/* Aktivacija svetlucanja pri hover-u */
+.home-button:hover::before {
+    top: 0;
+    left: 0;
+    opacity: 1;
+}
 
 /* 📱 Responsive dizajn */
 @media (max-width: 768px) {
