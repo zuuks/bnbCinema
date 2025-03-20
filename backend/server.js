@@ -34,19 +34,31 @@ const authenticateUser = (req, res, next) => {
 };
 
 app.get('/reviews', (req, res) => {
-    const { filmId } = req.query;
+    const { filmId, email } = req.query;
+
     if (!filmId) {
         return res.status(400).send('filmId je obavezan');
     }
 
-    db.query('SELECT username, email, rating, comment FROM reviews WHERE filmId = ?', [filmId], (err, results) => {
+    let query = 'SELECT username, email, rating, comment FROM reviews WHERE filmId = ?';
+    let queryParams = [filmId];
+
+    // Ako postoji email u query-u, filtriraj recenzije samo za tog korisnika
+    if (email) {
+        query += ' AND email = ?';
+        queryParams.push(email);
+    }
+
+    db.query(query, queryParams, (err, results) => {
         if (err) {
-            console.error('Greška pri dohvatanju recenzija:', err);
-            return res.status(500).json(err);
+            console.error('❌ Greška pri dohvatanju recenzija:', err);
+            return res.status(500).json({ message: 'Greška pri dohvatanju recenzija.' });
         }
+
         res.json(results);
     });
 });
+
 
 app.post('/reviews', authenticateUser, (req, res) => {
     console.log('Podaci primljeni na backend:', req.body);

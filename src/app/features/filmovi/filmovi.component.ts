@@ -100,56 +100,73 @@ updateUserStatus(): void {
 
   submitReview(): void {
     if (!this.isLoggedIn) {
-        console.warn('Korisnik nije prijavljen! Preusmeravanje na login...');
+        console.warn('🔴 Korisnik nije prijavljen! Preusmeravanje na login...');
         this.router.navigate(['/login']);
         return;
     }
 
     if (!this.selectedFilm) return;
 
-    if (!this.selectedRating || !this.selectedComment.trim()) {
-        alert('Morate uneti sve podatke!');
-        return;
-    }
+    const email = this.username; 
 
-    // Provera da li korisnik ima rezervaciju za film
-    this.http.get<any[]>(`http://localhost:5000/api/rezervacije`, {
+    
+    this.http.get<any[]>(`http://localhost:5000/reviews?filmId=${this.selectedFilm.movieId}&email=${email}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     }).subscribe({
-        next: (reservations) => {
-            const hasWatched = reservations.some(rez => rez.film_title === this.selectedFilm.title);
-
-            if (!hasWatched) {
-                alert('Ne možete ostaviti recenziju jer niste gledali ovaj film.');
+        next: (reviews: any[]) => {
+            if (reviews.length > 0) {
+                alert('⚠ Već ste ocenili ovaj film!');
                 return;
             }
 
-            // Ako je prošao proveru, šaljemo recenziju
-            const newReview = {
-                filmId: this.selectedFilm.movieId,
-                rating: this.selectedRating,
-                comment: this.selectedComment
-            };
+            
+            if (!this.selectedRating || !this.selectedComment.trim()) {
+                alert('⚠ Morate uneti sve podatke!');
+                return;
+            }
 
-            console.log('✅ Podaci koji se šalju na backend:', newReview);
+          
+            this.http.get<any[]>(`http://localhost:5000/api/rezervacije`, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+            }).subscribe({
+                next: (reservations: any[]) => {
+                    const hasWatched = reservations.some(rez => rez.film_title === this.selectedFilm.title);
 
-            this.filmoviService.submitReview(newReview).subscribe({
-                next: (response) => {
-                    console.log('✅ Recenzija uspešno sačuvana:', response);
+                    if (!hasWatched) {
+                        alert('❌ Ne možete ostaviti recenziju jer niste gledali ovaj film.');
+                        return;
+                    }
 
-                    this.selectedComment = '';
-                    this.selectedRating = 5;
+                 
+                    const newReview = {
+                        filmId: this.selectedFilm.movieId,
+                        rating: this.selectedRating,
+                        comment: this.selectedComment
+                    };
 
-                    this.loadReviews(this.selectedFilm.movieId);
+                    console.log('✅ Podaci koji se šalju na backend:', newReview);
+
+                    this.filmoviService.submitReview(newReview).subscribe({
+                        next: (response) => {
+                            console.log('✅ Recenzija uspešno sačuvana:', response);
+                            this.selectedComment = '';
+                            this.selectedRating = 5;
+                            this.loadReviews(this.selectedFilm.movieId);
+                        },
+                        error: (error: any) => {
+                            console.error('❌ Greška prilikom slanja recenzije:', error);
+                        }
+                    });
                 },
-                error: (error) => {
-                    console.error('❌ Greška prilikom slanja recenzije:', error);
+                error: (error: any) => {
+                    console.error('❌ Greška pri proveri rezervacija:', error);
+                    alert('Došlo je do greške pri proveri rezervacija.');
                 }
             });
         },
-        error: (error) => {
-            console.error('❌ Greška pri proveri rezervacija:', error);
-            alert('Došlo je do greške pri proveri rezervacija.');
+        error: (error: any) => {
+            console.error('❌ Greška pri proveri postojećih recenzija:', error);
+            alert('Došlo je do greške pri proveri postojećih recenzija.');
         }
     });
 }
