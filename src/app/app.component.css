@@ -285,36 +285,6 @@ body {
 
 
 
-.trivia-section {
-  background: #222;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  margin: 20px auto;
-  max-width: 600px;
-  box-shadow: 0 0 15px rgba(245, 197, 24, 0.5);
-}
-
-.trivia-section h2 {
-  color: #f5c518;
-}
-
-.trivia-section ul {
-  list-style: none;
-  padding: 0;
-  color: white;
-  font-size: 16px;
-}
-
-.trivia-section li {
-  padding: 8px 0;
-  border-bottom: 1px solid #f5c518;
-}
-
-.trivia-section li:last-child {
-  border-bottom: none;
-}
-
 .random-movie-container {
   text-align: center;
   margin-top: 20px;

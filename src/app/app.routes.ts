@@ -6,6 +6,7 @@ import { SignupComponent } from './features/signup/signup.component';
 import { FilmoviComponent } from './features/filmovi/filmovi.component';
 import { ContactComponent } from './features/contact/contact.component';
 import { RezervacijaComponent } from './features/rezervacija/rezervacija.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -15,5 +16,7 @@ export const routes: Routes = [
     { path: 'filmovi', component: FilmoviComponent },
     { path: 'rezervacija/:title', component: RezervacijaComponent },  
     { path: 'contact', component: ContactComponent },
+    { path: 'profile', component: ProfileComponent },
     { path: '**', redirectTo: '', pathMatch: 'full' } 
 ];
+

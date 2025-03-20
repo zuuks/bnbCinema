@@ -1,8 +1,7 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule ,Router} from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -22,12 +21,13 @@ export class AppComponent {
   username: string = '';
   email: string = '';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router) {
     if (isPlatformBrowser(this.platformId)) {
       this.ucitajKorpu();
       this.updateLoginStatus();
     }
   }
+
 
   toggleCart(): void {
     this.cartOpen = !this.cartOpen;
@@ -60,6 +60,8 @@ export class AppComponent {
       }
     }
   }
+
+
 
   async potvrdiSveRezervacije(): Promise<void> {
     if (this.korpa.length === 0) {
@@ -117,12 +119,13 @@ export class AppComponent {
     this.preporuceniFilm = this.filmoviLista[randomIndex];
   }
 
+  
   logout(): void {
     console.log(`🚪 Korisnik ${this.username} se odjavio.`);
     localStorage.removeItem('token');
     this.isLoggedIn = false;
     this.username = '';
     this.email = '';
-    location.reload();
+    this.router.navigate(['/login']); // Preusmeravanje na login stranicu
   }
 }

@@ -16,19 +16,28 @@
           <li><a routerLink="/about">About</a></li>
           <li><a routerLink="/contact">Contact</a></li>
         </ul>
+
+        <!-- Prikazivanje korisnika u navigaciji -->
         <ul class="login-nav">
-          <li *ngIf="!isLoggedIn"><a routerLink="/login">Prijava</a></li>
-          <li *ngIf="isLoggedIn"><a href="#" (click)="logout()">{{ username }} | Odjava</a></li>
+          <li *ngIf="!isLoggedIn">
+            <a routerLink="/login">Prijava</a>
+          </li>
+          <li *ngIf="isLoggedIn">
+            <a routerLink="/profile">👤 {{ username }}</a>
+          </li>
+          <li *ngIf="isLoggedIn">
+            <a href="#" (click)="logout()">🔴 Odjava</a>
+          </li>
         </ul>
         
+
         <!-- 🛒 Korpa -->
         <div class="cart-container" (click)="toggleCart()">
           🛒 Korpa <span *ngIf="korpa.length > 0">({{ korpa.length }})</span>
         </div>
       </div>
     </nav>
-</header>
-
+  </header>
 
   <div class="banner">
     <marquee scrollamount="7">🎬 Dobrodošli u BNB Cinema - Gledajte najbolje filmove kod nas! 🍿✨</marquee>
@@ -37,14 +46,7 @@
   <main>
     <router-outlet (activate)="onActivate($event)"></router-outlet>
 
-    <section class="trivia-section">
-      <h2>🎥 Da li ste znali?</h2>
-      <ul>
-        <li>🎞️ Prvi bioskop je otvoren 1895. godine u Parizu!</li>
-        <li>📽️ Najskuplji film svih vremena je "Avatar: The Way of Water" sa budžetom preko 400M$!</li>
-        <li>🍿 Zvuk hrskavih čipsa u filmovima se često simulira lomljenjem celera! 😲</li>
-      </ul>
-    </section>
+
 
     <div class="random-movie-container">
       <button class="random-movie-btn" (click)="preporuciFilm()">🎬 Preporuči mi film!</button>
