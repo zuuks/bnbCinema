@@ -17,7 +17,6 @@
           <li><a routerLink="/contact">Contact</a></li>
         </ul>
 
-        <!-- Prikazivanje korisnika u navigaciji -->
         <ul class="login-nav">
           <li *ngIf="!isLoggedIn">
             <a routerLink="/login">Prijava</a>
@@ -30,8 +29,6 @@
           </li>
         </ul>
         
-
-        <!-- 🛒 Korpa -->
         <div class="cart-container" (click)="toggleCart()">
           🛒 Korpa <span *ngIf="korpa.length > 0">({{ korpa.length }})</span>
         </div>
