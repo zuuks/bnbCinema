@@ -4,6 +4,7 @@
     padding: 20px;
     background: #222;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     border-radius: 10px;
     color: #f5c518;
     text-align: center;
@@ -37,6 +38,8 @@
     background-color: #d4a017;
 }
 =======
+=======
+>>>>>>> Stashed changes
     color: #f5c518;
     border-radius: 10px;
     text-align: center;
@@ -97,5 +100,9 @@
   .logout-button:hover {
     background: darkred;
   }
+<<<<<<< Updated upstream
+  
+>>>>>>> Stashed changes
+=======
   
 >>>>>>> Stashed changes

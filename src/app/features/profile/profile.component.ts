@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { jwtDecode } from 'jwt-decode'; // ✅ Import jwtDecode
 
 @Component({
@@ -26,6 +27,8 @@ export class ProfileComponent implements OnInit {
         this.username = decoded.username || 'Korisnik'; // ✅ Postavljanje korisničkog imena
         this.email = decoded.email || 'Nepoznata email adresa'; // ✅ Postavljanje emaila
 =======
+=======
+>>>>>>> Stashed changes
 import { AuthService } from '../../auth.service';
 import { jwtDecode } from 'jwt-decode';
 import { FormsModule } from '@angular/forms';  // ✅ DODAJ OVO
@@ -60,6 +63,9 @@ export class ProfileComponent implements OnInit {
         const decoded: any = jwtDecode(token);
         this.username = decoded.username || 'Korisnik';
         this.email = decoded.email || 'Nepoznata email adresa';
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
       } catch (error) {
         console.error('❌ Greška pri dekodiranju tokena:', error);
@@ -70,10 +76,13 @@ export class ProfileComponent implements OnInit {
   }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   logout(): void {
     localStorage.removeItem('token'); // ✅ Brisanje tokena iz localStorage
     this.router.navigate(['/login']); // ✅ Preusmeravanje na login stranicu
 =======
+=======
+>>>>>>> Stashed changes
   updateProfile(): void {
     if (!this.newUsername && !this.newPassword) {
       alert('Molimo unesite novo korisničko ime ili novu šifru.');
@@ -104,6 +113,9 @@ export class ProfileComponent implements OnInit {
   logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   }
 }
