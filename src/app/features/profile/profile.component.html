@@ -31,7 +31,7 @@
                         <td>{{ rezervacija.broj_karata }}</td>
                         <td>{{ rezervacija.datum | date: 'yyyy-MM-dd' }}</td>
                         <td>
-                            <button (click)="removeReservation(rezervacija.id)">Ukloni</button>
+                            <button (click)="removeReservation(rezervacija.id)" class="save-button brisirez">Ukloni</button>
                         </td>
                     </tr>
                 </tbody>

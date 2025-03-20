@@ -63,7 +63,12 @@ body {
 }
 
 
-
+.brisirez{
+  padding: 8px;
+  width: 50%;
+  margin-top: 0px;
+  font-size: 12px;
+}
 .reservations {
   width: 65%;
   text-align: center;
