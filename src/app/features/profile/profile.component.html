@@ -1,35 +1,37 @@
 <div class="profile-container">
+    <div class="account-info">
+        <h2 class="naloginfo">PODACI O NALOGU:</h2>
+        <p class="naloginfo"><strong>KORISNIČKO IME:  {{ username }}</strong></p>
+        <p class="naloginfo"><strong>E-MAIL: {{ email }}</strong></p>
 
-  <!-- 🎭 Naslov sa ikonicom -->
-  <div class="profile-header">
-      <h1>👤 Moj profil</h1>
-      <p>Pregled i izmena vaših podataka</p>
-  </div>
+        <label for="username">Novo korisničko ime:</label>
+        <input type="text" id="username" placeholder="input za ime">
 
-  <!-- ℹ️ Informacije o korisniku -->
-  <div class="profile-info">
-      <p><strong>🔹 Korisničko ime:</strong> <span class="highlight">{{ username }}</span></p>
-      <p><strong>📧 Email:</strong> <span class="highlight">{{ email }}</span></p>
-  </div>
+        <label for="password">Nova šifra:</label>
+        <input type="password" id="password" placeholder="input za šifru">
 
-  <!-- 📝 Forma za ažuriranje podataka -->
-  <div class="profile-form">
-      <form (submit)="updateProfile()">
-          <div class="input-group">
-              <label for="newUsername">✏️ Novo korisničko ime:</label>
-              <input type="text" id="newUsername" [(ngModel)]="newUsername" name="newUsername" placeholder="Unesite novo korisničko ime">
-          </div>
+        <button class="save-button">SACUVAJ PROMENE</button>
+    </div>
 
-          <div class="input-group">
-              <label for="newPassword">🔒 Nova šifra:</label>
-              <input type="password" id="newPassword" [(ngModel)]="newPassword" name="newPassword" placeholder="Unesite novu šifru">
-          </div>
-
-          <button type="submit" class="save-button">💾 Sačuvaj promene</button>
-      </form>
-  </div>
-
-  <!-- 🔴 Dugme za odjavu -->
-  <button class="logout-button" (click)="logout()">🚪 Odjavi se</button>
-
+    <div class="reservations">
+        <h3>Vaše rezervacije:</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kolona 1</th>
+                        <th>Kolona 2</th>
+                        <th>Kolona 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Red 1</td><td>Podaci</td><td>Podaci</td></tr>
+                    <tr><td>Red 2</td><td>Podaci</td><td>Podaci</td></tr>
+                    <tr><td>Red 3</td><td>Podaci</td><td>Podaci</td></tr>
+                    <tr><td>Red 4</td><td>Podaci</td><td>Podaci</td></tr>
+                    <tr><td>Red 5</td><td>Podaci</td><td>Podaci</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

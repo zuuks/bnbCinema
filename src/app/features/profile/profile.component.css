@@ -1,143 +1,86 @@
-/* 📌 Glavni kontejner - zauzima celu širinu i centriran */
-.profile-container {
-  width: 100%;
-  height: 100vh; /* Zauzima celu visinu ekrana */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #111; /* Tamna pozadina */
-  color: #f5c518;
-  text-align: center;
+body {
+  background-color: #111;
+  font-family: Arial, sans-serif;
 }
-
-/* 🏷️ Profilni okvir - Bez ivica */
-.profile-box {
-  width: 50%;
-  max-width: 600px;
-  background: #222;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 10px 25px rgba(245, 197, 24, 0.3);
+.profile-container{
+  color: white;
 }
-
-/* ✨ Stilizacija naslova */
-.profile-box h2 {
-  font-size: 28px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 15px;
-}
-
-/* 📜 Informacije o korisniku */
-.profile-info {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-/* 🎨 Polja za unos */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-label {
-  font-size: 16px;
-  font-weight: bold;
+.naloginfo{
   text-align: left;
 }
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
 
-input {
-  width: 100%;
-  padding: 12px;
+.account-info{
+  padding: 20px;
+  border-right: 3px solid #f5c518;
+}
+
+.account-info {
+  width: 30%;
+}
+
+.account-info input {
+  display: block;
+  width: 30%;
+  padding: 8px;
+  text-align: center;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
   border: 2px solid #f5c518;
-  border-radius: 8px;
-  background: #111;
+  background: black;
   color: #f5c518;
-  font-size: 16px;
-  transition: all 0.3s;
 }
 
-input:focus {
-  background: #222;
-  border-color: #ffcc00;
-  outline: none;
-}
-
-/* ✅ Dugmad */
-button {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(45deg, #f5c518, #ff6600);
+.save-button {
+  width: 85%;
+  padding: 12px;
+  background: linear-gradient(45deg, #ffcc00, #ff6600);
   color: black;
   font-weight: bold;
   border: none;
   border-radius: 8px;
+  margin-top: 10px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   text-transform: uppercase;
-  transition: all 0.3s;
-  box-shadow: 0px 5px 10px rgba(255, 204, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 4px 8px rgba(255, 204, 0, 0.5);
 }
 
-button:hover {
-  background: linear-gradient(45deg, #ff6600, #f5c518);
+.save-button:hover {
+  background: linear-gradient(45deg, #ff6600, #ffcc00);
   transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(255, 204, 0, 0.7);
 }
 
-.logout-button {
-  background: red;
-  color: white;
-  margin-top: 15px;
+.save-button:active {
+  transform: scale(0.95);
 }
 
-.logout-button:hover {
-  background: darkred;
-  transform: scale(1.05);
-}
 
-/* 🎟️ Sekcija za potvrđene rezervacije */
-.reservations-container {
-  width: 50%;
-  max-width: 600px;
-  margin-top: 30px;
-  padding: 20px;
-  background: rgba(255, 215, 0, 0.1);
-  border-radius: 10px;
+
+.reservations {
+  width: 65%;
   text-align: center;
-  box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
 }
 
-.reservations-container h3 {
-  font-size: 22px;
-  color: #f5c518;
-  margin-bottom: 10px;
-}
-
-.reservations-list {
-  list-style: none;
-  padding: 0;
-}
-
-.reservations-list li {
+.table-container {
+  border: 2px solid #f5c518;
   padding: 10px;
-  border-bottom: 1px solid #f5c518;
-  font-size: 18px;
-  color: white;
 }
 
-.reservations-list li:last-child {
-  border-bottom: none;
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-/* 📱 Responsivnost za mobilne uređaje */
-@media (max-width: 768px) {
-  .profile-box {
-      width: 80%;
-  }
-
-  .reservations-container {
-      width: 80%;
-  }
+th, td {
+  border: 1px solid #f5c518;
+  padding: 10px;
+  text-align: center;
 }
