@@ -7,34 +7,32 @@ const authRoutes = require('./routes/authRoutes');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-console.log("✅ Express aplikacija je pokrenuta...");
+console.log("Express aplikacija je pokrenuta...");
 
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api/auth', authRoutes);
 
-// Middleware za autentifikaciju korisnika
 const authenticateUser = (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {
-        console.error('❌ Nema tokena u zahtevu!');
+        console.error('Nema tokena u zahtevu!');
         return res.status(401).json({ message: "Nema tokena, neautorizovan pristup" });
     }
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log('📢 Dekodirani JWT token:', decoded);
+        console.log('Dekodirani JWT token:', decoded);
         req.user = decoded;
         next();
     } catch (error) {
-        console.error('❌ Greška pri dekodiranju tokena:', error);
+        console.error('Greška pri dekodiranju tokena:', error);
         return res.status(401).json({ message: "Nevažeći token" });
     }
 };
 
-// 📌 GET Reviews (Dohvatanje recenzija po filmId)
 app.get('/reviews', (req, res) => {
     const { filmId } = req.query;
     if (!filmId) {
@@ -43,52 +41,49 @@ app.get('/reviews', (req, res) => {
 
     db.query('SELECT username, email, rating, comment FROM reviews WHERE filmId = ?', [filmId], (err, results) => {
         if (err) {
-            console.error('❌ Greška pri dohvatanju recenzija:', err);
+            console.error('Greška pri dohvatanju recenzija:', err);
             return res.status(500).json(err);
         }
         res.json(results);
     });
 });
 
-// 📌 POST Review (Dodavanje recenzije)
 app.post('/reviews', authenticateUser, (req, res) => {
-    console.log('📢 Podaci primljeni na backend:', req.body);
+    console.log('Podaci primljeni na backend:', req.body);
 
     const { filmId, rating, comment } = req.body;
     const { username, email } = req.user;
 
     if (!filmId || !rating || !comment || !username || !email) {
-        console.error('❌ Nedostaju podaci:', { filmId, username, rating, comment });
+        console.error('Nedostaju podaci:', { filmId, username, rating, comment });
         return res.status(400).send('Sva polja su obavezna');
     }
 
     const query = 'INSERT INTO reviews (filmId, username, email, rating, comment) VALUES (?, ?, ?, ?, ?)';
     db.query(query, [filmId, username, email, rating, comment], (err) => {
         if (err) {
-            console.error('❌ Greška pri dodavanju recenzije:', err, { filmId, username, email, rating, comment });
+            console.error('Greška pri dodavanju recenzije:', err, { filmId, username, email, rating, comment });
             return res.status(500).json(err);
         }
         res.status(201).json({ message: 'Recenzija sačuvana' });
     });
 });
 
-// 📌 DELETE Reviews (Brisanje svih recenzija za film)
 app.delete('/reviews', (req, res) => {
     const { filmId } = req.query;
     if (!filmId) return res.status(400).send('filmId je obavezan');
 
     db.query('DELETE FROM reviews WHERE filmId = ?', [filmId], (err, result) => {
         if (err) {
-            console.error('❌ Greška pri brisanju recenzija:', err);
+            console.error('Greška pri brisanju recenzija:', err);
             return res.status(500).json(err);
         }
         res.send('Recenzije obrisane');
     });
 });
 
-// 📌 POST Rezervacija (Čuvanje rezervacija u bazi)
 app.post('/api/rezervacije', authenticateUser, (req, res) => {
-    console.log('📢 Primljen zahtev za čuvanje rezervacija:', req.body);
+    console.log('Primljen zahtev za čuvanje rezervacija:', req.body);
 
     const { rezervacije } = req.body;
     const { username, email } = req.user;
@@ -109,27 +104,26 @@ app.post('/api/rezervacije', authenticateUser, (req, res) => {
 
     db.query(query, [values], (err, result) => {
         if (err) {
-            console.error('❌ Greška pri čuvanju rezervacija:', err);
+            console.error('Greška pri čuvanju rezervacija:', err);
             return res.status(500).json({ message: 'Greška pri čuvanju rezervacija.' });
         }
 
-        console.log(`✅ Uspešno sačuvane rezervacije za korisnika ${username} (${email})`);
+        console.log(`Uspešno sačuvane rezervacije za korisnika ${username} (${email})`);
         res.status(201).json({ message: 'Rezervacije uspešno sačuvane!' });
     });
 });
 
-// 📌 GET Rezervacije (Dohvatanje rezervacija za korisnika)
 app.get('/api/rezervacije', authenticateUser, (req, res) => {
     const { email } = req.user;
 
     db.query('SELECT id, film_title, broj_karata, datum FROM reservations WHERE email = ?', [email], (err, results) => {
         if (err) {
-            console.error('❌ Greška pri dohvatanju rezervacija:', err);
+            console.error('Greška pri dohvatanju rezervacija:', err);
             return res.status(500).json({ message: 'Greška pri dohvatanju rezervacija.' });
         }
 
         if (results.length === 0) {
-            return res.json([]);  // Prazan niz ako nema rezervacija
+            return res.json([]);  
         }
 
         res.json(results);
@@ -137,14 +131,13 @@ app.get('/api/rezervacije', authenticateUser, (req, res) => {
 });
 
 
-// 📌 DELETE Rezervacija (Brisanje pojedinačne rezervacije po ID-u)
 app.delete('/api/rezervacije/:id', authenticateUser, (req, res) => {
     const { id } = req.params;
     const { email } = req.user;
 
     db.query('DELETE FROM reservations WHERE id = ? AND email = ?', [id, email], (err, result) => {
         if (err) {
-            console.error('❌ Greška pri brisanju rezervacije:', err);
+            console.error('Greška pri brisanju rezervacije:', err);
             return res.status(500).json({ message: 'Greška pri brisanju rezervacije.' });
         }
 
@@ -152,12 +145,11 @@ app.delete('/api/rezervacije/:id', authenticateUser, (req, res) => {
             return res.status(404).json({ message: 'Rezervacija nije pronađena ili ne pripada korisniku.' });
         }
 
-        console.log(`✅ Rezervacija sa ID ${id} obrisana za korisnika ${email}`);
+        console.log(`Rezervacija sa ID ${id} obrisana za korisnika ${email}`);
         res.json({ message: 'Rezervacija uspešno obrisana!' });
     });
 });
 
 
-// 🚀 Pokretanje servera
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server pokrenut na portu ${PORT}`));
+app.listen(PORT, () => console.log(`Server pokrenut na portu ${PORT}`));

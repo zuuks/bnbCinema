@@ -16,13 +16,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.filmoviService.getFilmovi().subscribe((data: any[]) => {
-      this.randomFilmovi = this.getRandomFilms(data, 5); // Uzimamo 5 filmova
+      this.randomFilmovi = this.getRandomFilms(data, 5); 
     });
   }
 
-  /** 🔀 Funkcija za biranje 5 nasumičnih filmova */
   getRandomFilms(films: any[], count: number): any[] {
-    let shuffled = films.sort(() => 0.5 - Math.random()); // Mešamo filmove
-    return shuffled.slice(0, count); // Uzimamo prvih 5
+    let shuffled = films.sort(() => 0.5 - Math.random()); 
+    return shuffled.slice(0, count); 
   }
 }
