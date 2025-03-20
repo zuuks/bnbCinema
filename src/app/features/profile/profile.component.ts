@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { jwtDecode } from 'jwt-decode'; // ✅ Import jwtDecode
 
 @Component({
@@ -27,6 +28,8 @@ export class ProfileComponent implements OnInit {
         this.username = decoded.username || 'Korisnik'; // ✅ Postavljanje korisničkog imena
         this.email = decoded.email || 'Nepoznata email adresa'; // ✅ Postavljanje emaila
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 import { AuthService } from '../../auth.service';
@@ -64,6 +67,9 @@ export class ProfileComponent implements OnInit {
         this.username = decoded.username || 'Korisnik';
         this.email = decoded.email || 'Nepoznata email adresa';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -77,10 +83,13 @@ export class ProfileComponent implements OnInit {
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   logout(): void {
     localStorage.removeItem('token'); // ✅ Brisanje tokena iz localStorage
     this.router.navigate(['/login']); // ✅ Preusmeravanje na login stranicu
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
   updateProfile(): void {
@@ -114,6 +123,9 @@ export class ProfileComponent implements OnInit {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
