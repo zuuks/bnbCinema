@@ -4,7 +4,7 @@ import { FilmoviService } from './filmovi.service';
 import { FormsModule } from '@angular/forms';
 import { jwtDecode } from 'jwt-decode';
 
-import { Router } from '@angular/router'; // ✅ Import za preusmeravanje
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-filmovi',
@@ -14,7 +14,7 @@ import { Router } from '@angular/router'; // ✅ Import za preusmeravanje
   styleUrls: ['./filmovi.component.css']
 })
 export class FilmoviComponent {
-  @Output() korpaOsvezena = new EventEmitter<void>(); // Emituje event za osvežavanje korpe
+  @Output() korpaOsvezena = new EventEmitter<void>();
 
   filmovi: any[] = [];
   filteredFilmovi: any[] = [];
@@ -33,7 +33,7 @@ export class FilmoviComponent {
   rezervisaniFilmovi: any[] = [];
   korpa: any[] = [];
 
-  constructor(private filmoviService: FilmoviService, private router: Router) {} // ✅ Dodali smo Router za preusmeravanje
+  constructor(private filmoviService: FilmoviService, private router: Router) {}
 
   ngOnInit(): void {
     this.filmoviService.getFilmovi().subscribe((data: any[]) => {
@@ -51,10 +51,10 @@ export class FilmoviComponent {
 
     try {
         const decoded: any = jwtDecode(token);
-        console.log('📢 Dekodirani JWT token:', decoded);
+        console.log('Dekodirani JWT token:', decoded);
         return decoded.email || ''; 
     } catch (error) {
-        console.error('❌ Greška pri dekodiranju tokena:', error);
+        console.error('Greška pri dekodiranju tokena:', error);
         return '';
     }
 }
@@ -64,7 +64,7 @@ updateUserStatus(): void {
   if (this.isLoggedIn) {
       this.username = this.getUsernameFromToken();
       if (!this.username) {
-          console.error('❌ Nije pronađen username u tokenu!');
+          console.error('Nije pronađen username u tokenu!');
       }
   }
 }
@@ -92,7 +92,7 @@ updateUserStatus(): void {
 
   submitReview(): void {
     if (!this.isLoggedIn) {
-        console.warn('⚠️ Korisnik nije prijavljen! Preusmeravanje na login...');
+        console.warn('Korisnik nije prijavljen! Preusmeravanje na login...');
         this.router.navigate(['/login']);
         return;
     }
@@ -100,7 +100,7 @@ updateUserStatus(): void {
     if (!this.selectedFilm) return;
 
     if (!this.selectedRating || !this.selectedComment.trim()) {
-        alert('⚠️ Morate uneti sve podatke!');
+        alert('Morate uneti sve podatke!');
         return;
     }
 
@@ -110,11 +110,11 @@ updateUserStatus(): void {
         comment: this.selectedComment
     };
 
-    console.log('📢 Podaci koji se šalju na backend:', newReview);
+    console.log('Podaci koji se šalju na backend:', newReview);
 
     this.filmoviService.submitReview(newReview).subscribe({
         next: (response) => {
-            console.log('✅ Recenzija uspešno sačuvana:', response);
+            console.log('Recenzija uspešno sačuvana:', response);
 
             this.selectedComment = ''; 
             this.selectedRating = 5;  
@@ -122,7 +122,7 @@ updateUserStatus(): void {
             this.loadReviews(this.selectedFilm.movieId);
         },
         error: (error) => {
-            console.error('❌ Greška prilikom slanja recenzije:', error);
+            console.error('Greška prilikom slanja recenzije:', error);
         }
     });
 }

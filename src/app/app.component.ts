@@ -54,7 +54,7 @@ export class AppComponent {
         this.username = decoded.username || 'Korisnik';
         this.email = decoded.email || '';
       } catch (error) {
-        console.error('❌ Greška pri dekodiranju tokena:', error);
+        console.error('Greška pri dekodiranju tokena:', error);
         this.username = 'Korisnik';
         this.email = '';
       }
@@ -99,7 +99,7 @@ export class AppComponent {
       localStorage.removeItem('korpa');
       this.toggleCart();
     } catch (error) {
-      console.error('❌ Greška pri slanju rezervacija:', error);
+      console.error('Greška pri slanju rezervacija:', error);
       alert('Greška pri slanju rezervacija. Pokušajte ponovo.');
     }
   }
@@ -121,11 +121,11 @@ export class AppComponent {
 
   
   logout(): void {
-    console.log(`🚪 Korisnik ${this.username} se odjavio.`);
+    console.log(`Korisnik ${this.username} se odjavio.`);
     localStorage.removeItem('token');
     this.isLoggedIn = false;
     this.username = '';
     this.email = '';
-    this.router.navigate(['/login']); // Preusmeravanje na login stranicu
+    this.router.navigate(['/login']);
   }
 }

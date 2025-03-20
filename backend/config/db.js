@@ -10,10 +10,10 @@ const db = mysql.createConnection({
 
 db.connect(err => {
     if (err) {
-        console.error('❌ Greška pri povezivanju sa bazom:', err);
+        console.error('Greška pri povezivanju sa bazom:', err);
         return;
     }
-    console.log('✅ Povezan sa MySQL bazom');
+    console.log('Povezan sa MySQL bazom');
 });
 
 

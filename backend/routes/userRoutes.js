@@ -5,12 +5,11 @@ const mysql = require('mysql');
 const router = express.Router();
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',  // Postavi svog korisnika baze
-  password: '',  // Postavi šifru baze ako je imaš
+  user: 'root',  
+  password: '',  
   database: 'auth_db'
 });
 
-// ✅ Endpoint za ažuriranje korisničkih podataka
 router.put('/update-user', async (req, res) => {
   const { email, username, password } = req.body;
 
@@ -37,7 +36,7 @@ router.put('/update-user', async (req, res) => {
 
   db.query(updateQuery, updateValues, (err, result) => {
     if (err) {
-      console.error('❌ Greška pri ažuriranju podataka:', err);
+      console.error('Greška pri ažuriranju podataka:', err);
       return res.status(500).json({ message: 'Greška pri ažuriranju podataka' });
     }
 
