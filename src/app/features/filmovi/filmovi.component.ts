@@ -21,6 +21,7 @@ export class FilmoviComponent {
   searchTitle: string = '';
   searchDirector: string = '';
   searchYear: string = '';
+  hoveredFilm: any = null;
 
   selectedFilm: any = null;
   selectedRating: number = 5;

@@ -10,8 +10,12 @@
     <div class="lista" *ngFor="let film of filteredFilmovi">
         <div class="film">
             <div class="filmgore">
-                <img [src]="film.poster" alt="{{ film.title }}" (click)="openFilmDetails(film)">
+                <div class="film-hover" (mouseover)="hoveredFilm = film" (mouseleave)="hoveredFilm = null" (click)="openFilmDetails(film)">
+                    <img [src]="film.poster" alt="{{ film.title }}">
+                    <div class="overlay" *ngIf="hoveredFilm === film">Više informacija</div>
+                </div>
             </div>
+            
             <div class="filmdole">
                 <div class="film-info">
                     <h2>{{ film.title }}</h2>
