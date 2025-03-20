@@ -9,7 +9,7 @@ import { NgIf } from '@angular/common'; //
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [NgIf, FormsModule], 
+  imports: [FormsModule], 
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
