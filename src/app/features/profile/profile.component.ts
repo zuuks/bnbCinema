@@ -4,12 +4,12 @@ import { AuthService } from '../../auth.service';
 import { jwtDecode } from 'jwt-decode';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor, CommonModule } from '@angular/common';  // ✅ Dodato
+import { NgIf, NgFor, CommonModule } from '@angular/common';  
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, CommonModule],  // ✅ Dodato
+  imports: [FormsModule, NgIf, NgFor, CommonModule],  
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
@@ -20,13 +20,13 @@ export class ProfileComponent implements OnInit {
   email: string = 'Nepoznata email adresa';
   newUsername: string = '';
   newPassword: string = '';
-  reservations: any[] = [];  // Čuva rezervacije korisnika
+  reservations: any[] = [];  
 
   constructor(private router: Router, private authService: AuthService, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.loadUserData();
-    this.loadReservations();  // Učitavanje rezervacija pri inicijalizaciji
+    this.loadReservations();  
   }
 
   loadUserData(): void {
@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
         this.username = decoded.username || 'Korisnik';
         this.email = decoded.email || 'Nepoznata email adresa';
       } catch (error) {
-        console.error('❌ Greška pri dekodiranju tokena:', error);
+        console.error('Greška pri dekodiranju tokena:', error);
         this.username = 'Nepoznat korisnik';
         this.email = '';
       }
@@ -51,11 +51,11 @@ export class ProfileComponent implements OnInit {
       next: (data) => {
         this.reservations = data.map(rez => ({
           ...rez,
-          datum: rez.datum.split('T')[0]  // Formatiranje datuma
+          datum: rez.datum.split('T')[0]
         }));
       },
       error: (error) => {
-        console.error('❌ Greška pri dohvatanju rezervacija:', error);
+        console.error('Greška pri dohvatanju rezervacija:', error);
         this.reservations = [];
       }
     });
@@ -71,11 +71,11 @@ export class ProfileComponent implements OnInit {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     }).subscribe({
       next: () => {
-        console.log(`✅ Rezervacija sa ID ${reservationId} je uspešno obrisana.`);
-        this.reservations = this.reservations.filter(rez => rez.id !== reservationId); // Ažuriraj prikaz
+        console.log(`Rezervacija sa ID ${reservationId} je uspešno obrisana.`);
+        this.reservations = this.reservations.filter(rez => rez.id !== reservationId); 
       },
       error: (error) => {
-        console.error('❌ Greška pri brisanju rezervacije:', error);
+        console.error('Greška pri brisanju rezervacije:', error);
         alert('Došlo je do greške pri brisanju rezervacije.');
       }
     });
