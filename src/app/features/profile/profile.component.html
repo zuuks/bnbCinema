@@ -6,14 +6,8 @@
       <p><strong>Korisničko ime:</strong> {{ username }}</p>
       <p><strong>Email:</strong> {{ email }}</p>
     </div>
-    <button class="logout-button" (click)="logout()">🔴 Odjavi se</button>
 
-  </div>
-  
-
-  <h2>Moj profil</h2>
-  <p><strong>Korisničko ime:</strong> {{ username }}</p>
-  <p><strong>Email:</strong> {{ email }}</p>
+      
 
   <form (submit)="updateProfile()">
     <label for="newUsername">Novo korisničko ime:</label>
@@ -27,3 +21,4 @@
 
   <button class="logout-button" (click)="logout()">🔴 Odjavi se</button>
 </div>
+
