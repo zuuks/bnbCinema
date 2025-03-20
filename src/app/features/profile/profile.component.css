@@ -3,6 +3,7 @@
     margin: auto;
     padding: 20px;
     background: #222;
+<<<<<<< Updated upstream
     border-radius: 10px;
     color: #f5c518;
     text-align: center;
@@ -35,3 +36,66 @@
 .logout-button:hover {
     background-color: #d4a017;
 }
+=======
+    color: #f5c518;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(245, 197, 24, 0.5);
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+  }
+  
+  label {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #f5c518;
+    border-radius: 5px;
+    background: #111;
+    color: #f5c518;
+    font-size: 14px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px;
+    background: #f5c518;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background: #d4a017;
+  }
+  
+  .logout-button {
+    margin-top: 15px;
+    background: red;
+    color: white;
+  }
+  
+  .logout-button:hover {
+    background: darkred;
+  }
+  
+>>>>>>> Stashed changes

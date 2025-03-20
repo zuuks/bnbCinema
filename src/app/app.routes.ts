@@ -16,7 +16,7 @@ export const routes: Routes = [
     { path: 'filmovi', component: FilmoviComponent },
     { path: 'rezervacija/:title', component: RezervacijaComponent },  
     { path: 'contact', component: ContactComponent },
-    { path: 'profile', component: ProfileComponent },
+    { path: 'profile', component: ProfileComponent }, 
     { path: '**', redirectTo: '', pathMatch: 'full' } 
 ];
 

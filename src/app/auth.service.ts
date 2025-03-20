@@ -37,4 +37,9 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
+
+  updateUser(email: string, updatedData: { username?: string; password?: string }): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update-user`, { email, ...updatedData });
+  }
+  
 }
