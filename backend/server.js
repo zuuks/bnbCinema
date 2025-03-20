@@ -122,30 +122,41 @@ app.post('/api/rezervacije', authenticateUser, (req, res) => {
 app.get('/api/rezervacije', authenticateUser, (req, res) => {
     const { email } = req.user;
 
-    db.query('SELECT * FROM reservations WHERE email = ?', [email], (err, results) => {
+    db.query('SELECT id, film_title, broj_karata, datum FROM reservations WHERE email = ?', [email], (err, results) => {
         if (err) {
             console.error('❌ Greška pri dohvatanju rezervacija:', err);
             return res.status(500).json({ message: 'Greška pri dohvatanju rezervacija.' });
+        }
+
+        if (results.length === 0) {
+            return res.json([]);  // Prazan niz ako nema rezervacija
         }
 
         res.json(results);
     });
 });
 
-// 📌 DELETE Rezervacije (Brisanje svih rezervacija korisnika)
-app.delete('/api/rezervacije', authenticateUser, (req, res) => {
+
+// 📌 DELETE Rezervacija (Brisanje pojedinačne rezervacije po ID-u)
+app.delete('/api/rezervacije/:id', authenticateUser, (req, res) => {
+    const { id } = req.params;
     const { email } = req.user;
 
-    db.query('DELETE FROM reservations WHERE email = ?', [email], (err, result) => {
+    db.query('DELETE FROM reservations WHERE id = ? AND email = ?', [id, email], (err, result) => {
         if (err) {
-            console.error('❌ Greška pri brisanju rezervacija:', err);
-            return res.status(500).json({ message: 'Greška pri brisanju rezervacija.' });
+            console.error('❌ Greška pri brisanju rezervacije:', err);
+            return res.status(500).json({ message: 'Greška pri brisanju rezervacije.' });
         }
 
-        console.log(`🚮 Sve rezervacije obrisane za korisnika ${email}`);
-        res.json({ message: 'Sve rezervacije su obrisane!' });
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Rezervacija nije pronađena ili ne pripada korisniku.' });
+        }
+
+        console.log(`✅ Rezervacija sa ID ${id} obrisana za korisnika ${email}`);
+        res.json({ message: 'Rezervacija uspešno obrisana!' });
     });
 });
+
 
 // 🚀 Pokretanje servera
 const PORT = process.env.PORT || 5000;

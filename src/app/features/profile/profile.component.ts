@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { jwtDecode } from 'jwt-decode';
-import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { NgIf } from '@angular/common'; // 
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor, CommonModule } from '@angular/common';  // ✅ Dodato
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule], 
+  imports: [FormsModule, NgIf, NgFor, CommonModule],  // ✅ Dodato
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
@@ -19,12 +19,14 @@ export class ProfileComponent implements OnInit {
   username: string = 'Nepoznat korisnik';
   email: string = 'Nepoznata email adresa';
   newUsername: string = '';
-  newPassword: string = ''; 
+  newPassword: string = '';
+  reservations: any[] = [];  // Čuva rezervacije korisnika
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.loadUserData();
+    this.loadReservations();  // Učitavanje rezervacija pri inicijalizaciji
   }
 
   loadUserData(): void {
@@ -42,32 +44,43 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  updateProfile(): void {
-    if (!this.newUsername && !this.newPassword) {
-      alert('Molimo unesite novo korisničko ime ili novu šifru.');
-      return;
-    }
-
-    const updatedData: any = {};
-    if (this.newUsername) updatedData.username = this.newUsername;
-    if (this.newPassword) updatedData.password = this.newPassword;
-
-
-    
-    this.authService.updateUser(this.email, updatedData).subscribe({
-      next: (response: any) => {  
-        console.log('✅ Uspešno ažurirano:', response);
-        alert('Podaci su uspešno ažurirani!');
+  loadReservations(): void {
+    this.http.get<any[]>(`http://localhost:5000/api/rezervacije`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    }).subscribe({
+      next: (data) => {
+        this.reservations = data.map(rez => ({
+          ...rez,
+          datum: rez.datum.split('T')[0]  // Formatiranje datuma
+        }));
       },
-      error: (error: any) => {
-        console.error('❌ Greška pri ažuriranju podataka:', error);
-        alert('Došlo je do greške pri ažuriranju.');
+      error: (error) => {
+        console.error('❌ Greška pri dohvatanju rezervacija:', error);
+        this.reservations = [];
       }
     });
-
-    this.newUsername = '';
-    this.newPassword = '';
   }
+  
+
+  removeReservation(reservationId: number): void {
+    if (!confirm('Da li ste sigurni da želite da uklonite ovu rezervaciju?')) {
+      return;
+    }
+  
+    this.http.delete(`http://localhost:5000/api/rezervacije/${reservationId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    }).subscribe({
+      next: () => {
+        console.log(`✅ Rezervacija sa ID ${reservationId} je uspešno obrisana.`);
+        this.reservations = this.reservations.filter(rez => rez.id !== reservationId); // Ažuriraj prikaz
+      },
+      error: (error) => {
+        console.error('❌ Greška pri brisanju rezervacije:', error);
+        alert('Došlo je do greške pri brisanju rezervacije.');
+      }
+    });
+  }
+  
 
   logout(): void {
     localStorage.removeItem('token');
