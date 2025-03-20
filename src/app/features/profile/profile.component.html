@@ -1,24 +1,35 @@
 <div class="profile-container">
 
-    <h1>👤 Moj profil</h1>
-    
-    <div class="profile-info">
-      <p><strong>Korisničko ime:</strong> {{ username }}</p>
-      <p><strong>Email:</strong> {{ email }}</p>
-    </div>
+  <!-- 🎭 Naslov sa ikonicom -->
+  <div class="profile-header">
+      <h1>👤 Moj profil</h1>
+      <p>Pregled i izmena vaših podataka</p>
+  </div>
 
-      
+  <!-- ℹ️ Informacije o korisniku -->
+  <div class="profile-info">
+      <p><strong>🔹 Korisničko ime:</strong> <span class="highlight">{{ username }}</span></p>
+      <p><strong>📧 Email:</strong> <span class="highlight">{{ email }}</span></p>
+  </div>
 
-  <form (submit)="updateProfile()">
-    <label for="newUsername">Novo korisničko ime:</label>
-    <input type="text" id="newUsername" [(ngModel)]="newUsername" name="newUsername" placeholder="Unesite novo korisničko ime">
+  <!-- 📝 Forma za ažuriranje podataka -->
+  <div class="profile-form">
+      <form (submit)="updateProfile()">
+          <div class="input-group">
+              <label for="newUsername">✏️ Novo korisničko ime:</label>
+              <input type="text" id="newUsername" [(ngModel)]="newUsername" name="newUsername" placeholder="Unesite novo korisničko ime">
+          </div>
 
-    <label for="newPassword">Nova šifra:</label>
-    <input type="password" id="newPassword" [(ngModel)]="newPassword" name="newPassword" placeholder="Unesite novu šifru">
+          <div class="input-group">
+              <label for="newPassword">🔒 Nova šifra:</label>
+              <input type="password" id="newPassword" [(ngModel)]="newPassword" name="newPassword" placeholder="Unesite novu šifru">
+          </div>
 
-    <button type="submit">Sačuvaj promene</button>
-  </form>
+          <button type="submit" class="save-button">💾 Sačuvaj promene</button>
+      </form>
+  </div>
 
-  <button class="logout-button" (click)="logout()">🔴 Odjavi se</button>
+  <!-- 🔴 Dugme za odjavu -->
+  <button class="logout-button" (click)="logout()">🚪 Odjavi se</button>
+
 </div>
-
