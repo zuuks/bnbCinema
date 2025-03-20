@@ -53,9 +53,9 @@ export class RezervacijaComponent implements OnInit {
       localStorage.setItem('korpa', JSON.stringify(korpa));
     }
 
-    this.korpaOsvezena.emit(); // ✅ Obavesti AppComponent da osveži korpu
+    this.korpaOsvezena.emit();
 
     alert(`"${this.film.title}" je dodat u korpu!`);
-    this.router.navigate(['/filmovi']); // ✅ Prelazak na filmove
+    this.router.navigate(['/filmovi']); 
   }
 }
