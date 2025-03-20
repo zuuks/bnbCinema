@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FilmoviService } from './filmovi.service';
 import { FormsModule } from '@angular/forms';
 import { jwtDecode } from 'jwt-decode';
-
+import { HttpClient } from '@angular/common/http'; 
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,8 +33,16 @@ export class FilmoviComponent {
   rezervisaniFilmovi: any[] = [];
   korpa: any[] = [];
 
-  constructor(private filmoviService: FilmoviService, private router: Router) {}
+ 
+  constructor(
 
+    private filmoviService: FilmoviService,
+
+    private router: Router,
+
+    private http: HttpClient 
+
+  ) {}
   ngOnInit(): void {
     this.filmoviService.getFilmovi().subscribe((data: any[]) => {
       this.filmovi = data;
@@ -104,28 +112,48 @@ updateUserStatus(): void {
         return;
     }
 
-    const newReview = {
-        filmId: this.selectedFilm.movieId,
-        rating: this.selectedRating,
-        comment: this.selectedComment
-    };
+    // Provera da li korisnik ima rezervaciju za film
+    this.http.get<any[]>(`http://localhost:5000/api/rezervacije`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    }).subscribe({
+        next: (reservations) => {
+            const hasWatched = reservations.some(rez => rez.film_title === this.selectedFilm.title);
 
-    console.log('Podaci koji se šalju na backend:', newReview);
+            if (!hasWatched) {
+                alert('Ne možete ostaviti recenziju jer niste gledali ovaj film.');
+                return;
+            }
 
-    this.filmoviService.submitReview(newReview).subscribe({
-        next: (response) => {
-            console.log('Recenzija uspešno sačuvana:', response);
+            // Ako je prošao proveru, šaljemo recenziju
+            const newReview = {
+                filmId: this.selectedFilm.movieId,
+                rating: this.selectedRating,
+                comment: this.selectedComment
+            };
 
-            this.selectedComment = ''; 
-            this.selectedRating = 5;  
+            console.log('✅ Podaci koji se šalju na backend:', newReview);
 
-            this.loadReviews(this.selectedFilm.movieId);
+            this.filmoviService.submitReview(newReview).subscribe({
+                next: (response) => {
+                    console.log('✅ Recenzija uspešno sačuvana:', response);
+
+                    this.selectedComment = '';
+                    this.selectedRating = 5;
+
+                    this.loadReviews(this.selectedFilm.movieId);
+                },
+                error: (error) => {
+                    console.error('❌ Greška prilikom slanja recenzije:', error);
+                }
+            });
         },
         error: (error) => {
-            console.error('Greška prilikom slanja recenzije:', error);
+            console.error('❌ Greška pri proveri rezervacija:', error);
+            alert('Došlo je do greške pri proveri rezervacija.');
         }
     });
 }
+
 
  
   calculateAverageRating(): void {
