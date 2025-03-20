@@ -6,7 +6,7 @@ import { SignupComponent } from './features/signup/signup.component';
 import { FilmoviComponent } from './features/filmovi/filmovi.component';
 import { ContactComponent } from './features/contact/contact.component';
 import { RezervacijaComponent } from './features/rezervacija/rezervacija.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './features/profile/profile.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
