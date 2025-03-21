@@ -29,7 +29,7 @@
           </li>
           
           <li class="cart-nav" (click)="toggleCart()">
-            <a href="#">
+            <a >
               <i class="fa-solid fa-cart-shopping"></i>
               <span *ngIf="korpa.length > 0">({{ korpa.length }})</span>
             </a>
@@ -47,12 +47,6 @@
   <main>
     <router-outlet (activate)="onActivate($event)"></router-outlet>
 
-
-
-    <div class="random-movie-container">
-      <button class="random-movie-btn" (click)="preporuciFilm()"><i class="fa-solid fa-film"></i> Preporuči mi film!</button>
-      <p *ngIf="preporuceniFilm">Pogledajte: <strong>{{ preporuceniFilm }}</strong></p>
-    </div>
   </main>
 <div class="cart-modal" *ngIf="cartOpen">
   <div class="cart-content">

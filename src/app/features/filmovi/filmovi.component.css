@@ -130,7 +130,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Tamnija pozadina preko cele slike */
+    background: rgba(0, 0, 0, 0.6); 
     color: #f5c518;
     font-size: 18px;
     font-weight: bold;
@@ -168,7 +168,7 @@
     touch-action: none; 
 }
 
-/* 🖥️ Glavni stil za modal */
+
 .modal {
     display: flex;
     justify-content: center;
@@ -178,20 +178,21 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Blago zatamnjena pozadina */
-    backdrop-filter: blur(8px); /* Blur efekat za moderniji izgled */
+    background: rgba(0, 0, 0, 0.7); 
+    backdrop-filter: blur(8px); 
     z-index: 1000;
     animation: fadeIn 0.3s ease-in-out;
 }
 
-/* 📦 Unutrašnji sadržaj modala */
+
 .modal-content {
-    background: linear-gradient(135deg, #1a1a1a, #333); /* Elegantna gradijent pozadina */
+    background: linear-gradient(135deg, #1a1a1a, #333); 
     padding: 25px;
     width: 90%;
     max-width: 500px;
     max-height: 80vh;
     overflow-y: auto;
+    overflow-x: hidden;
     border-radius: 12px;
     text-align: center;
     color: #f5c518;
@@ -200,7 +201,7 @@
     animation: scaleUp 0.3s ease-in-out;
 }
 
-/* ❌ Dugme za zatvaranje */
+
 .close {
     position: absolute;
     top: 12px;
@@ -220,7 +221,7 @@
     color: #ff4747;
 }
 
-/* ⭐ Ocena filma */
+
 .average-rating {
     font-size: 18px;
     background: #f5c518;
@@ -232,7 +233,7 @@
     box-shadow: 0px 4px 8px rgba(245, 197, 24, 0.4);
 }
 
-/* 🔥 Animacije */
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -243,7 +244,7 @@
     to { transform: scale(1); opacity: 1; }
 }
 
-/* 📱 Responsive prilagodljivost */
+
 @media (max-width: 768px) {
     .modal-content {
         width: 95%;
@@ -252,13 +253,13 @@
 }
 
 
-/* 📦 Glavni kontejner za ocenjivanje */
+
 .review-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    background: rgba(255, 215, 0, 0.15); /* Blagi transparentni žuti efekat */
+    background: rgba(255, 215, 0, 0.15); 
     padding: 20px;
     border-radius: 12px;
     width: 100%;
@@ -268,7 +269,7 @@
     animation: fadeIn 0.4s ease-in-out;
 }
 
-/* 🎬 Naslov */
+
 .review-container h3 {
     color: #f5c518;
     font-size: 22px;
@@ -278,7 +279,7 @@
     letter-spacing: 1px;
 }
 
-/* ⭐ Ocena filmova */
+
 .rating-box {
     display: flex;
     align-items: center;
@@ -291,7 +292,7 @@
     font-weight: bold;
 }
 
-/* 🎚️ Drop-down za ocene */
+
 .rating-box select {
     padding: 10px;
     border-radius: 6px;
@@ -307,7 +308,7 @@
     background: #333;
 }
 
-/* 💬 Kontejner za komentare */
+
 .comment-box {
     display: flex;
     flex-direction: column;
@@ -322,7 +323,7 @@
     font-weight: bold;
 }
 
-/* 📜 Polje za unos komentara */
+
 .comment-box textarea {
     width: 100%;
     height: 90px;
@@ -342,7 +343,7 @@
     outline: none;
 }
 
-/* 💾 Dugme za čuvanje komentara */
+
 .save-button {
     width: 100%;
     padding: 12px;
@@ -368,7 +369,7 @@
     transform: scale(0.95);
 }
 
-/* 🖼️ Slika filma */
+
 .modal-img-small {
     width: 60%;
     max-height: 300px;
@@ -378,7 +379,7 @@
     box-shadow: 0px 5px 10px rgba(245, 197, 24, 0.5);
 }
 
-/* 💬 Lista komentara */
+
 .comments-list {
     max-height: 250px;
     overflow-y: auto;
@@ -391,7 +392,7 @@
     box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.2);
 }
 
-/* 🎭 Stavka liste komentara */
+
 .comments-list li {
     padding: 10px;
     border-bottom: 1px solid #444;
@@ -404,7 +405,6 @@
     background: rgba(255, 215, 0, 0.2);
 }
 
-/* 🗑️ Dugme za brisanje komentara */
 .delete-button {
     width: 100%;
     padding: 10px;
@@ -427,7 +427,7 @@
     transform: scale(0.95);
 }
 
-/* 📱 Responsivnost */
+
 @media (max-width: 768px) {
     .review-container {
         max-width: 90%;
@@ -444,7 +444,7 @@
     }
 }
 
-/* 🔥 Animacije */
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }

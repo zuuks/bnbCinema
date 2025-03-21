@@ -44,7 +44,7 @@ app.get('/reviews', (req, res) => {
     let query = 'SELECT username, email, rating, comment FROM reviews WHERE filmId = ?';
     let queryParams = [filmId];
 
-    // Ako postoji email u query-u, filtriraj recenzije samo za tog korisnika
+
     if (email) {
         query += ' AND email = ?';
         queryParams.push(email);
@@ -52,7 +52,7 @@ app.get('/reviews', (req, res) => {
 
     db.query(query, queryParams, (err, results) => {
         if (err) {
-            console.error('❌ Greška pri dohvatanju recenzija:', err);
+            console.error('Greška pri dohvatanju recenzija:', err);
             return res.status(500).json({ message: 'Greška pri dohvatanju recenzija.' });
         }
 
@@ -176,7 +176,7 @@ app.put('/api/update-user', authenticateUser, async (req, res) => {
     let queryParams = [];
 
     if (username) {
-        // Menjanje username u više tabela
+       
         queries.push('UPDATE users SET name = ? WHERE email = ?');
         queryParams.push(username, email);
 
@@ -189,11 +189,11 @@ app.put('/api/update-user', authenticateUser, async (req, res) => {
 
     if (password) {
         try {
-            const hashedPassword = await bcrypt.hash(password, 10); // ✅ Enkriptovanje šifre
+            const hashedPassword = await bcrypt.hash(password, 10); 
             queries.push('UPDATE users SET password = ? WHERE email = ?');
             queryParams.push(hashedPassword, email);
         } catch (error) {
-            console.error('❌ Greška pri enkripciji šifre:', error);
+            console.error('Greška pri enkripciji šifre:', error);
             return res.status(500).json({ message: 'Greška pri enkripciji šifre.' });
         }
     }
@@ -204,7 +204,7 @@ app.put('/api/update-user', authenticateUser, async (req, res) => {
 
     db.beginTransaction(err => {
         if (err) {
-            console.error('❌ Greška pri pokretanju transakcije:', err);
+            console.error('Greška pri pokretanju transakcije:', err);
             return res.status(500).json({ message: 'Greška pri pokretanju transakcije.' });
         }
 
@@ -213,7 +213,7 @@ app.put('/api/update-user', authenticateUser, async (req, res) => {
             db.query(query, [queryParams[index * 2], queryParams[index * 2 + 1]], (err, result) => {
                 if (err) {
                     return db.rollback(() => {
-                        console.error('❌ Greška pri ažuriranju podataka:', err);
+                        console.error('Greška pri ažuriranju podataka:', err);
                         res.status(500).json({ message: 'Greška pri ažuriranju podataka.' });
                     });
                 }
@@ -223,12 +223,12 @@ app.put('/api/update-user', authenticateUser, async (req, res) => {
                     db.commit(err => {
                         if (err) {
                             return db.rollback(() => {
-                                console.error('❌ Greška pri potvrdi transakcije:', err);
+                                console.error('Greška pri potvrdi transakcije:', err);
                                 res.status(500).json({ message: 'Greška pri potvrdi transakcije.' });
                             });
                         }
 
-                        console.log(`✅ Uspešno ažurirani podaci za korisnika ${email}`);
+                        console.log(`Uspešno ažurirani podaci za korisnika ${email}`);
                         res.json({ message: 'Podaci uspešno ažurirani!' });
                     });
                 }

@@ -1,9 +1,11 @@
 <div class="container">
-  <div class="search-container">
-      <input type="text" class="search-bar" placeholder="Pretraži po naslovu..." [(ngModel)]="searchTitle" (input)="filterMovies()">
-      <input type="text" class="search-bar" placeholder="Pretraži po režiseru..." [(ngModel)]="searchDirector" (input)="filterMovies()">
-      <input type="date" class="search-bar" [(ngModel)]="searchYear" (change)="filterMovies()" max="9999-12-31">
-  </div>
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Pretraži po naslovu..." [(ngModel)]="searchTitle" (input)="filterMovies()">
+        <input type="text" class="search-bar" placeholder="Pretraži po režiseru..." [(ngModel)]="searchDirector" (input)="filterMovies()">
+        <input type="text" class="search-bar" placeholder="Pretraži po žanru..." [(ngModel)]="searchGenre" (input)="filterMovies()">
+        <input type="date" class="search-bar" [(ngModel)]="searchYear" (change)="filterMovies()" max="9999-12-31">
+      </div>
+      
 <div class="svifilmovi">
     <div class="lista" *ngFor="let film of filteredFilmovi">
         <div class="film">
@@ -45,7 +47,7 @@
     <ul class="rezervisani-list">
         <li *ngFor="let film of rezervisaniFilmovi">
             {{ film.title }}
-            <button class="otkazi-button" (click)="otkaziRezervaciju(film.title)">❌ Otkazi</button>
+            <button class="otkazi-button" (click)="otkaziRezervaciju(film.title)">Otkazi</button>
         </li>
     </ul>
 </div>
@@ -65,7 +67,9 @@
 
 <p><strong>Režiser:</strong> {{ selectedFilm.director.name }}</p>
 <p><strong>Godina:</strong> {{ selectedFilm.startDate }}</p>
-<p><strong>Žanr:</strong> {{ selectedFilm.genre }}</p>
+<p><strong>Žanr:</strong> {{ getGenresAsString(selectedFilm) }}</p>
+
+  
 <p><strong>Opis:</strong> {{ selectedFilm.shortDescription }}</p>
 
 <hr>
@@ -90,16 +94,17 @@
 
           <hr>
 
-<h3>Komentari:</h3>
-<ul class="comments-list">
-    <li *ngFor="let review of filmReviews">
-        <strong>Ocena:</strong> {{ review.rating }} ⭐ - {{ review.comment }} | {{ review.username }}
-    </li>
-</ul>
+          <h3>Komentari:</h3>
 
-
-<button class="delete-button" (click)="deleteAllReviews()">🗑️ Obriši sve komentare</button>
-
+          <ul class="comments-list" *ngIf="filmReviews.length > 0; else noReviews">
+            <li *ngFor="let review of filmReviews">
+              <strong>Ocena:</strong> {{ review.rating }} ⭐ - {{ review.comment }} | {{ review.username }}
+            </li>
+          </ul>
+          
+          <ng-template #noReviews>
+            <p style="color: #aaa; font-style: italic;">Trenutno nema komentara za ovaj film.</p>
+          </ng-template>
       </div>
   </div>
 

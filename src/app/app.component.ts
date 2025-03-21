@@ -1,7 +1,8 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterModule ,Router} from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -11,7 +12,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class AppComponent {
   title = 'BNB Cinema';
-  
+
   footerUrl = '/about';
   footerLink = 'Saznaj više';
 
@@ -21,22 +22,23 @@ export class AppComponent {
   username: string = '';
   email: string = '';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
+  ) {
     if (isPlatformBrowser(this.platformId)) {
       this.ucitajKorpu();
       this.updateLoginStatus();
     }
   }
 
-
   toggleCart(): void {
     this.cartOpen = !this.cartOpen;
   }
 
   ucitajKorpu(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.korpa = JSON.parse(localStorage.getItem('korpa') || '[]');
-    }
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.korpa = JSON.parse(localStorage.getItem('korpa') || '[]');
   }
 
   onActivate(event: any): void {
@@ -45,6 +47,8 @@ export class AppComponent {
   }
 
   updateLoginStatus(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const token = localStorage.getItem('token');
     this.isLoggedIn = !!token;
 
@@ -60,8 +64,6 @@ export class AppComponent {
       }
     }
   }
-
-
 
   async potvrdiSveRezervacije(): Promise<void> {
     if (this.korpa.length === 0) {
@@ -105,24 +107,20 @@ export class AppComponent {
   }
 
   ukloniIzKorpe(rezervacija: any): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     this.korpa = this.korpa.filter(item => item !== rezervacija);
     localStorage.setItem('korpa', JSON.stringify(this.korpa));
-  
     alert(`Uklonili ste "${rezervacija.film.title}" iz korpe.`);
   }
 
-  preporuceniFilm: string | null = null;
-  filmoviLista: string[] = ["Titanic", "Inception", "Avatar", "The Matrix", "Pulp Fiction", "Interstellar", "The Godfather"];
-
-  preporuciFilm() {
-    const randomIndex = Math.floor(Math.random() * this.filmoviLista.length);
-    this.preporuceniFilm = this.filmoviLista[randomIndex];
-  }
-
-  
   logout(): void {
     console.log(`Korisnik ${this.username} se odjavio.`);
-    localStorage.removeItem('token');
+
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('token');
+    }
+
     this.isLoggedIn = false;
     this.username = '';
     this.email = '';

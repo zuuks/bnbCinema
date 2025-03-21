@@ -27,7 +27,7 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    console.log("1");
+   
     if (this.signupForm.valid) {
       const { name, email, password } = this.signupForm.value;
 
