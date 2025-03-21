@@ -5,12 +5,13 @@
         <p class="naloginfo"><strong>E-MAIL: {{ email }}</strong></p>
 
         <label for="username">Novo korisničko ime:</label>
-        <input type="text" id="username" placeholder="input za ime">
-
+        <input type="text" id="username" placeholder="Unesite novo ime" [(ngModel)]="newUsername">
+        
         <label for="password">Nova šifra:</label>
-        <input type="password" id="password" placeholder="input za šifru">
-
-        <button class="save-button">SACUVAJ PROMENE</button>
+        <input type="password" id="password" placeholder="Unesite novu šifru" [(ngModel)]="newPassword">
+        
+        <button class="save-button" (click)="updateProfile()">SACUVAJ PROMENE</button>
+        
     </div>
 
     <div class="reservations">

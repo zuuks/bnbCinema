@@ -81,6 +81,41 @@ export class ProfileComponent implements OnInit {
     });
   }
   
+  updateProfile(): void {
+    if (!this.newUsername && !this.newPassword) {
+        alert('Molimo unesite novo korisničko ime ili novu šifru.');
+        return;
+    }
+
+    if (this.newPassword && this.newPassword.length < 6) {
+        alert('Lozinka mora imati najmanje 6 karaktera.');
+        return;
+    }
+
+    const updatedData: any = {};
+    if (this.newUsername) updatedData.username = this.newUsername;
+    if (this.newPassword) updatedData.password = this.newPassword;
+
+    this.http.put(`http://localhost:5000/api/update-user`, { email: this.email, ...updatedData }, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    }).subscribe({
+        next: (response: any) => {
+            console.log('Uspešno ažurirano:', response);
+            alert('Podaci su uspešno ažurirani!');
+            this.loadUserData();
+        },
+        error: (error: any) => {
+            console.error('Greška pri ažuriranju podataka:', error);
+            alert('Došlo je do greške pri ažuriranju.');
+        }
+    });
+
+    this.newUsername = '';
+    this.newPassword = '';
+}
+
+
+
 
   logout(): void {
     localStorage.removeItem('token');

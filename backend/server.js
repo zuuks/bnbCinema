@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 console.log("Express aplikacija je pokrenuta...");
@@ -161,6 +162,85 @@ app.delete('/api/rezervacije/:id', authenticateUser, (req, res) => {
         res.json({ message: 'Rezervacija uspešno obrisana!' });
     });
 });
+
+
+
+app.put('/api/update-user', authenticateUser, async (req, res) => {
+    const { email, username, password } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ message: 'Email je obavezan.' });
+    }
+
+    let queries = [];
+    let queryParams = [];
+
+    if (username) {
+        // Menjanje username u više tabela
+        queries.push('UPDATE users SET name = ? WHERE email = ?');
+        queryParams.push(username, email);
+
+        queries.push('UPDATE reviews SET username = ? WHERE email = ?');
+        queryParams.push(username, email);
+
+        queries.push('UPDATE reservations SET username = ? WHERE email = ?');
+        queryParams.push(username, email);
+    }
+
+    if (password) {
+        try {
+            const hashedPassword = await bcrypt.hash(password, 10); // ✅ Enkriptovanje šifre
+            queries.push('UPDATE users SET password = ? WHERE email = ?');
+            queryParams.push(hashedPassword, email);
+        } catch (error) {
+            console.error('❌ Greška pri enkripciji šifre:', error);
+            return res.status(500).json({ message: 'Greška pri enkripciji šifre.' });
+        }
+    }
+
+    if (queries.length === 0) {
+        return res.status(400).json({ message: 'Nema podataka za ažuriranje.' });
+    }
+
+    db.beginTransaction(err => {
+        if (err) {
+            console.error('❌ Greška pri pokretanju transakcije:', err);
+            return res.status(500).json({ message: 'Greška pri pokretanju transakcije.' });
+        }
+
+        let completedQueries = 0;
+        queries.forEach((query, index) => {
+            db.query(query, [queryParams[index * 2], queryParams[index * 2 + 1]], (err, result) => {
+                if (err) {
+                    return db.rollback(() => {
+                        console.error('❌ Greška pri ažuriranju podataka:', err);
+                        res.status(500).json({ message: 'Greška pri ažuriranju podataka.' });
+                    });
+                }
+
+                completedQueries++;
+                if (completedQueries === queries.length) {
+                    db.commit(err => {
+                        if (err) {
+                            return db.rollback(() => {
+                                console.error('❌ Greška pri potvrdi transakcije:', err);
+                                res.status(500).json({ message: 'Greška pri potvrdi transakcije.' });
+                            });
+                        }
+
+                        console.log(`✅ Uspešno ažurirani podaci za korisnika ${email}`);
+                        res.json({ message: 'Podaci uspešno ažurirani!' });
+                    });
+                }
+            });
+        });
+    });
+});
+
+
+
+
+
 
 
 const PORT = process.env.PORT || 5000;
