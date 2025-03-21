@@ -22,17 +22,12 @@
 }
 
 .about-image {
-    width: 45%;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(255, 204, 0, 0.7);
+    margin-bottom: 250px;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .about-image:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(255, 204, 0, 1);
 }
 
 .about-text {
