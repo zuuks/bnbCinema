@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <div class="app">
   <header>
     <section>
@@ -21,22 +22,22 @@
             <a routerLink="/login">Prijava</a>
           </li>
           <li *ngIf="isLoggedIn">
-            <a routerLink="/profile">👤 {{ username }}</a>
+            <a routerLink="/profile"><i class="fa-solid fa-user"></i> {{ username }}</a>
           </li>
           <li *ngIf="isLoggedIn">
-            <a href="#" (click)="logout()">🔴 Odjava</a>
+            <a href="#" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i> Odjava</a>
           </li>
         </ul>
         
         <div class="cart-container" (click)="toggleCart()">
-          🛒 Korpa <span *ngIf="korpa.length > 0">({{ korpa.length }})</span>
+          <i class="fa-solid fa-cart-shopping"></i> Korpa <span *ngIf="korpa.length > 0">({{ korpa.length }})</span>
         </div>
       </div>
     </nav>
   </header>
 
   <div class="banner">
-    <marquee scrollamount="7">🎬 Dobrodošli u BNB Cinema - Gledajte najbolje filmove kod nas! 🍿✨</marquee>
+    <marquee scrollamount="7"><i class="fa-solid fa-film"></i> Dobrodošli u BNB Cinema - Gledajte najbolje filmove kod nas! 🍿✨</marquee>
   </div>
 
   <main>
@@ -45,25 +46,25 @@
 
 
     <div class="random-movie-container">
-      <button class="random-movie-btn" (click)="preporuciFilm()">🎬 Preporuči mi film!</button>
-      <p *ngIf="preporuceniFilm">🎥 Pogledajte: <strong>{{ preporuceniFilm }}</strong> 🍿</p>
+      <button class="random-movie-btn" (click)="preporuciFilm()"><i class="fa-solid fa-film"></i> Preporuči mi film!</button>
+      <p *ngIf="preporuceniFilm">Pogledajte: <strong>{{ preporuceniFilm }}</strong></p>
     </div>
   </main>
 <!-- 🛒 Modal za korpu -->
 <div class="cart-modal" *ngIf="cartOpen">
   <div class="cart-content">
-    <h2>🛒 Vaša korpa</h2>
+    <h2><i class="fa-solid fa-cart-shopping"></i> Vaša korpa</h2>
     <ul>
       <li *ngFor="let rezervacija of korpa">
-        🎟️ <strong>{{ rezervacija.film.title }}</strong> - 
+        <i class="fa-solid fa-ticket"></i> <strong>{{ rezervacija.film.title }}</strong> - 
         {{ rezervacija.brojKarata }} karata, 
         {{ rezervacija.datum }}
         <button (click)="ukloniIzKorpe(rezervacija)">❌</button>
       </li>
     </ul>
     <button class="confirm-button" (click)="potvrdiSveRezervacije()">✅ Potvrdi sve</button>
-  </div> <!-- ✅ Ovaj `div` zatvara `.cart-content` -->
-</div> <!-- ✅ Ovaj `div` zatvara `.cart-modal` -->
+  </div> 
+</div> 
 
 
   <footer>
