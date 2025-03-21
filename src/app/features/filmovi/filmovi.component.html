@@ -18,20 +18,18 @@
                 <div class="film-info">
                     <h2>{{ film.title }}</h2>
                     
-                    <!-- Ako je korisnik prijavljen, vodi ga na stranicu rezervacije -->
                     <a 
                         *ngIf="isLoggedIn" 
                         [attr.href]="'/rezervacija/' + film.title"
                         class="rezervisi-button">
-                        🎟️ Rezerviši
+                        <i class="fa-solid fa-ticket"></i> Rezerviši
                     </a>
             
-                    <!-- Ako korisnik NIJE prijavljen, vodi ga na login stranicu -->
                     <a 
                         *ngIf="!isLoggedIn" 
                         [attr.href]="'/login'"
                         class="rezervisi-button">
-                        🎟️ Rezerviši
+                        <i class="fa-solid fa-ticket"></i> Rezerviši
                     </a>
                 </div>
             </div>
@@ -43,7 +41,7 @@
 
 
 <div *ngIf="rezervisaniFilmovi.length > 0" class="rezervisani-container">
-    <h2>🎟️ Moje rezervacije</h2>
+    <h2><i class="fa-solid fa-ticket"></i> Moje rezervacije</h2>
     <ul class="rezervisani-list">
         <li *ngFor="let film of rezervisaniFilmovi">
             {{ film.title }}

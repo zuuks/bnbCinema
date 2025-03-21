@@ -1,8 +1,13 @@
 .home-container {
     text-align: center;
-    padding: 20px;
+    padding: 15px;
 }
 
+h1 {
+    color: #f5c518;
+    margin-top: -20px;  /* Smanjuje razmak od vrha */
+    font-size: 2.2rem;
+}
 .trivia-section {
     background: #222;
     padding: 20px;

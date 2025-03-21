@@ -27,17 +27,21 @@
           <li *ngIf="isLoggedIn">
             <a href="#" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i> Odjava</a>
           </li>
+          
+          <li class="cart-nav" (click)="toggleCart()">
+            <a href="#">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span *ngIf="korpa.length > 0">({{ korpa.length }})</span>
+            </a>
+          </li>
         </ul>
         
-        <div class="cart-container" (click)="toggleCart()">
-          <i class="fa-solid fa-cart-shopping"></i> Korpa <span *ngIf="korpa.length > 0">({{ korpa.length }})</span>
-        </div>
       </div>
     </nav>
   </header>
 
   <div class="banner">
-    <marquee scrollamount="7"><i class="fa-solid fa-film"></i> Dobrodošli u BNB Cinema - Gledajte najbolje filmove kod nas! 🍿✨</marquee>
+    <marquee scrollamount="7"><i class="fa-solid fa-film"></i> Dobrodošli u BNB Cinema - Gledajte najbolje filmove kod nas! <i class="fa-solid fa-film"></i></marquee>
   </div>
 
   <main>
@@ -50,7 +54,6 @@
       <p *ngIf="preporuceniFilm">Pogledajte: <strong>{{ preporuceniFilm }}</strong></p>
     </div>
   </main>
-<!-- 🛒 Modal za korpu -->
 <div class="cart-modal" *ngIf="cartOpen">
   <div class="cart-content">
     <h2><i class="fa-solid fa-cart-shopping"></i> Vaša korpa</h2>
@@ -59,12 +62,12 @@
         <i class="fa-solid fa-ticket"></i> <strong>{{ rezervacija.film.title }}</strong> - 
         {{ rezervacija.brojKarata }} karata, 
         {{ rezervacija.datum }}
-        <button (click)="ukloniIzKorpe(rezervacija)">❌</button>
+        <button (click)="ukloniIzKorpe(rezervacija)"><i class="fa-solid fa-xmark"></i></button>
       </li>
     </ul>
-    <button class="confirm-button" (click)="potvrdiSveRezervacije()">✅ Potvrdi sve</button>
+    <button class="confirm-button" (click)="potvrdiSveRezervacije()"><i class="fa-solid fa-check"></i> Potvrdi sve</button>
   </div> 
-</div> 
+</div>  
 
 
   <footer>
